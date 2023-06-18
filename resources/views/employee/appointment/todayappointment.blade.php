@@ -60,10 +60,27 @@
                                 {{ $appointment->date .' '.$appointment->time }}
                             </td>
                             <td>
-                                {{ $appointment->pet->name ?? '' }}
+                                {{ $appointment->pet->name ?? '' }} 
+                                <br>
+                                <span class="badge badge-danger"> AGE : {{ $appointment->pet->age ?? '' }}</span>
+                                <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
                             </td>
                             <td>
                                 {{ $appointment->package->name ?? '' }}
+                                @if($appointment->is_it_loyalty_appoint)
+                                <br>
+                                    <span class="badge badge-danger">it's loyalty Card</span>
+                                @endif
+                                @if($appointment->addon_id != null)
+                                    <hr>
+                                    @foreach(json_decode($appointment->addon_id) as $id)
+                                        @php
+                                            $addon = \App\Models\Addons::find($id);
+                                            $addon_name = $addon ? $addon->name : '';
+                                        @endphp
+                                        <small class="badge badge-dark">{{ $addon_name }}</small> <br>
+                                    @endforeach
+                                @endif
                             </td>
 
                             <td>

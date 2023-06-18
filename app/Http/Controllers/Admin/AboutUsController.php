@@ -10,6 +10,7 @@ use App\Models\AboutUs;
 use App\Models\Appointment;
 use App\Models\Cities;
 use App\Models\ContractTerms;
+use App\Models\Packages;
 use App\Models\Permission;
 use App\Models\User;
 use Carbon\Carbon;
@@ -23,16 +24,15 @@ class AboutUsController extends Controller
     public function edit($id)
     {
         $aboutus=AboutUs::find($id);
-
-        return view('admin.aboutus.edit', compact('aboutus'));
+        $packages = Packages::get();
+        return view('admin.aboutus.edit', compact('aboutus','packages'));
     }
 
 
     public function update(Request $request, $id)
     {
         $aboutus=AboutUs::find($id);
-        $data = $request->all(); 
-        
+        $data = $request->all();  
         if ($request->logo) {
             $date = Carbon::now()->micro;
             $ext = explode('.', $request->file('logo')->hashName());

@@ -31,6 +31,8 @@
 
                             <li><a href="{{ url('client/visits') }}">All Visits</a></li>
 
+                            <li><a href="{{ url('client/loyalty_cards') }}">Loyalty Cards</a></li>
+                            
                             <li><a href="{{ url('client/profile') }}">Edit account</a></li>
 
                             <li><a href="{{ url('client/signout') }}">Logout</a></li>

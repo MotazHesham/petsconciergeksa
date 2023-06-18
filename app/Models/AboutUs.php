@@ -34,6 +34,8 @@ class AboutUs extends Model
         'image_client_reviews',
         'image_packages',
         'image_contact',
+        'count_to_loyalty', 
+        'package_loyalty', 
     ];
 
 

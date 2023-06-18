@@ -38,6 +38,30 @@
                         </div>
                     @endif
                 </div>
+                <div class="form-group col-md-6">
+                    <label class="required" for="count_to_loyalty">{{ trans('cruds.aboutus.fields.count_to_loyalty') }}</label>
+                    <input type="number" name="count_to_loyalty" id="count_to_loyalty" class="form-control" required value="{{ $aboutus->count_to_loyalty }}">
+                    @if($errors->has('count_to_loyalty'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('count_to_loyalty') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="required" for="package_loyalty">{{ trans('cruds.aboutus.fields.package_loyalty') }}</label>
+                    <select class="form-control" name="package_loyalty" id="package_loyalty">
+                        @foreach($packages as $package)
+                            <option value="{{ $package->id }}" @if($package->id == $aboutus->package_loyalty) selected @endif>
+                                {{ $package->name }}
+                            </option>
+                        @endforeach
+                    </select> 
+                    @if($errors->has('package_loyalty'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('package_loyalty') }}
+                        </div>
+                    @endif
+                </div>
                 <div class="form-group col-md-3">
                     <label class="required" for="facebook">{{ trans('cruds.aboutus.fields.facebook') }}</label>
                     <input type="text" name="facebook" id="facebook" class="form-control" required value="{{ $aboutus->facebook }}">

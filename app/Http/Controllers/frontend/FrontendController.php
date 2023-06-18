@@ -58,8 +58,10 @@ class FrontendController extends Controller
         $category = Category::all();
         $gallery = Gallery::all();
         $sliders = Slider::all();
+        $addons_right = Addons::where('active',1)->orderBy('updated_at','desc')->get()->take(3);
+        $addons_left = Addons::where('active',1)->orderBy('updated_at','asc')->get()->take(3); 
         $comments =Comments::where('flag','1')->orderBy('id','DESC')->take('4')->get();
-        return view('frontend.index', compact('aboutus', 'category', 'gallery','comments','sliders'));
+        return view('frontend.index', compact('aboutus', 'category', 'gallery','comments','sliders','addons_right','addons_left'));
     }
 
     public function service()
@@ -209,8 +211,21 @@ class FrontendController extends Controller
 
     public function visits()
     {
-        $appointments = Appointment::with('comment')->where('user_id', Auth::guard('client')->user()->id)->orderBy('id','desc')->paginate(10); 
+        $appointments = Appointment::with('comment')->where('user_id', Auth::guard('client')->user()->id)->where('is_it_loyalty_appoint',0)->orderBy('id','desc')->paginate(10); 
         return view('frontend.users.allvisits', compact('appointments'));
+    }
+
+    public function loyalty_cards()
+    { 
+        $pets = Pet::where('client_id', Auth::guard('client')->user()->id)->get();
+        $have_loyalty_card = 0;
+        $aboutus = AboutUs::first();
+        $appointment_count = Appointment::where('status',2)->where('user_id',Auth::guard('client')->user()->id)->where('is_counted_as_loyalty',0)->where('is_it_loyalty_appoint',0)->count();
+        if($appointment_count >= $aboutus->count_to_loyalty){
+            $have_loyalty_card = 1;
+        }
+        $appointments = Appointment::with('comment')->where('user_id', Auth::guard('client')->user()->id)->where('is_it_loyalty_appoint',1)->orderBy('id','desc')->paginate(10); 
+        return view('frontend.users.loyalty_cards', compact('appointments','have_loyalty_card','pets','aboutus'));
     }
 
     public function appointment($id,Request $request)
@@ -366,7 +381,67 @@ class FrontendController extends Controller
         return redirect()->back()->with('success','Created successfully');
 
     }
+    public function bookloyalty(Request $request)
+    {
+        $aboutus = AboutUs::first();
 
+        $appointments = Appointment::where('status',2)->where('user_id',Auth::guard('client')->user()->id)->where('is_counted_as_loyalty',0)->where('is_it_loyalty_appoint',0)->get();
+        if($appointments->count() < $aboutus->count_to_loyalty){ 
+            return redirect()->back()->with('error','You must reach to ' . $aboutus->count_to_loyalty . ' Appointment done');
+        }else{
+            
+            $package = Packages::find($request->package_id); 
+            $client = Clients::find(Auth::guard('client')->user()->id);
+
+            if (!$client->address && !$client->lat && !$client->lng)
+                return redirect()->back()->with('error','You must add your address from your profile');
+
+            $appointment = new Appointment();
+            $appointment->user_id = Auth::guard('client')->user()->id;
+            $appointment->date = $request->date;
+            $appointment->time = $request->time;
+            $appointment->pet_id = $request->pet_id;
+            $appointment->package_id = $request->package_id;
+            $appointment->is_counted_as_loyalty = 1;
+            $appointment->is_it_loyalty_appoint = 1;
+            if ($request->size == 0)
+                $appointment->size = 'Small';
+            elseif ($request->size == 1)
+                $appointment->size = 'Medium';
+            else
+                $appointment->size = 'Large';
+            $appointment->price = 0;
+            $appointment->save();
+
+            $objDemo=new \stdClass();
+            $objDemo->title ='New Appointment';
+            $objDemo->customer_name= $client->name;
+            $objDemo->customer_email= $client->email;
+            $objDemo->customer_phone= $client->phone;
+            $objDemo->customer_address= $client->address; 
+            $objDemo->appointment_date= $request->date; 
+            $objDemo->appointment_time= $request->time; 
+            $pet=Pet::find($request->pet_id);
+            $objDemo->pet_name = $pet->name;
+            $objDemo->pet_kind = $pet->category->name ?? '';
+            $objDemo->pet_gender = $pet->gender;
+            $objDemo->pet_size = $appointment->size;
+            $objDemo->pet_age = $pet->age;
+            $objDemo->package_name = $package->name;
+            $objDemo->package_price = 0;
+            $objDemo->addons = null;
+            
+            // change the appointments as they counted in loyalty card
+            foreach($appointments->take($aboutus->count_to_loyalty) as $appo){
+                $appo->is_counted_as_loyalty = 1;
+                $appo->save();
+            }
+            
+            // Mail::to('info@petsconciergeksa.com')->send(new \App\Mail\Appointment($objDemo));
+            return redirect()->back()->with('success','Created successfully');
+
+        }
+    }
 
     public function getTime($date)
     {

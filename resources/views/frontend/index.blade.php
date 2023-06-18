@@ -90,38 +90,17 @@
 
                 <div class="col-md-3 col-lg-3 col-md-offset-1">
 
-                    <div class="HomeServ0">
+                    @foreach($addons_left as $addon)
+                        <div class="HomeServ0">
 
-                        <img src="{{ url('/frontend/img/Group%202.png') }}" width="80">
-
-
-
-                        <p>Gland Cleaning</p>
-
-                    </div>
+                            <img src="{{ URL::asset('storage/app/public/attachment/' . $addon->icon) }}" width="80">
 
 
 
-                    <div class="HomeServ0">
+                            <p>{{ $addon->name }}</p>
 
-                        <img src="{{ url('/frontend/img/Mask%20Group%201.png') }}" width="80">
-
-                        <p>Hair Cut, Trim Or Shave</p>
-
-                    </div>
-
-
-
-
-
-                    <div class="HomeServ0">
-
-                        <img src="{{ url('/frontend/img/Mask%20Group%206.png') }}" width="60">
-
-                        <p>Sanitary Trim</p>
-
-                    </div>
-
+                        </div> 
+                    @endforeach
                 </div>
 
 
@@ -140,37 +119,18 @@
 
                 <div class="col-md-3 col-lg-3 ">
 
-                    <div class="HomeServ01">
 
-                        <img src="{{ url('/frontend/img/Mask%20Group%203.png') }}" width="80">
+                    @foreach($addons_right as $addon)
+                        <div class="HomeServ01">
 
-
-
-                        <p>Fluff Dry</p>
-
-                    </div>
+                            <img src="{{ URL::asset('storage/app/public/attachment/' . $addon->icon) }}" width="80">
 
 
 
-                    <div class="HomeServ01">
+                            <p>{{ $addon->name }}</p>
 
-                        <img src="{{ url('/frontend/img/Mask%20Group%208.png') }}" width="80">
-
-                        <p>Tail Hair Trim</p>
-
-                    </div>
-
-
-
-
-
-                    <div class="HomeServ01">
-
-                        <img src="{{ url('/frontend/img/Mask%20Group%209.png') }}" width="60">
-
-                        <p>Tear Stain Remover</p>
-
-                    </div>
+                        </div> 
+                    @endforeach
 
                 </div>
 

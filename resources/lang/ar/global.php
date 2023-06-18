@@ -319,4 +319,9 @@ return [
     'calendar'                       => 'التقويم',
     'messenger'                      => 'مراسل',
     'appointment '                   => 'حجوزات',
+    'main_menus' => [
+        'general_settings' => 'الأعدادات العامة',
+        'client_managment' => 'أدارة العملاء',
+        'package_managment' => 'أدارة الباقات',
+    ],
 ];

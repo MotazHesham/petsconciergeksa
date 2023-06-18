@@ -202,6 +202,8 @@ VAT registered on 19/04/2022'=>'تشهد الهيئة العامة للزكاة 
             'create'=>'اضافه',
             'id'=>'ID',
             'price'=>'السعر',
+            'icon'=>'icon',
+            'active'=>'نشر',
             'edit'=>'تعديل'
         ],
 
@@ -294,6 +296,8 @@ VAT registered on 19/04/2022'=>'تشهد الهيئة العامة للزكاة 
             'facebook' => 'Facebook',
             'instagram' => 'Instagram',
             'googleplus' => 'GooglePlus', 
+            'count_to_loyalty' => 'Count To Loyalty', 
+            'package_loyalty' => 'Package Loyalty', 
             'logo' => 'Logo',
         ],
 

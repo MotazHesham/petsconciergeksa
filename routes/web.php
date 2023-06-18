@@ -94,6 +94,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('category', 'CategoryController');
 
     //Addon
+    Route::post('addon/update_status', 'AddonsController@update_status')->name('addon.update_status');
     Route::resource('addon', 'AddonsController');
 
     //Gallery
@@ -157,9 +158,11 @@ Route::group(['middleware' => 'client', 'prefix' => 'client'], function () {
     Route::post('/addpet','frontend\FrontendController@addpets');
 
     Route::get('/visits','frontend\FrontendController@visits');
+    Route::get('/loyalty_cards','frontend\FrontendController@loyalty_cards');
 
     Route::get('/appointment/{id}','frontend\FrontendController@appointment');
     Route::post('/makeappointment','frontend\FrontendController@makeAppointment');
+    Route::post('/bookloyalty','frontend\FrontendController@bookloyalty');
     Route::get('/reminder','frontend\FrontendController@reminder');
 
 

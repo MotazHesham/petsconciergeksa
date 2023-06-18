@@ -19,6 +19,8 @@ class Addons extends Model
     protected $fillable = [
         'name',
         'price',
+        'icon',
+        'active',
     ];
 
 

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html @if(app()->getLocale() == 'ar') dir="rtl" @endif>
+<html @if (app()->getLocale() == 'ar') dir="rtl" @endif>
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -16,25 +17,29 @@
     <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+        rel="stylesheet" />
     <link href="https://unpkg.com/@coreui/coreui@3.2/dist/css/coreui.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css"
+        rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-     @if(app()->getLocale() == 'ar')
-      <style>
-        .c-sidebar-nav .c-sidebar-nav-dropdown-items{
-          padding-right: 8%; 
-        }
-      </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    @if (app()->getLocale() == 'ar')
+        <style>
+            .c-sidebar-nav .c-sidebar-nav-dropdown-items {
+                padding-right: 8%;
+            }
+        </style>
     @else
-      <style>
-        .c-sidebar-nav .c-sidebar-nav-dropdown-items{
-          padding-left: 8%; 
-        }
-      </style>
+        <style>
+            .c-sidebar-nav .c-sidebar-nav-dropdown-items {
+                padding-left: 8%;
+            }
+        </style>
     @endif
     @yield('styles')
 </head>
@@ -43,7 +48,8 @@
     @include('employee.partials.menu')
     <div class="c-wrapper">
         <header class="c-header c-header-fixed px-3">
-            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
+            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar"
+                data-class="c-sidebar-show">
                 <i class="fas fa-fw fa-bars"></i>
             </button>
 
@@ -53,15 +59,18 @@
                 <i class="fas fa-fw fa-bars"></i>
             </button>
 
-            <ul class="c-header-nav @if(app()->getLocale() == 'ar') mr-auto @else ml-auto @endif">
-                @if(count(config('panel.available_languages', [])) > 1)
+            <ul class="c-header-nav @if (app()->getLocale() == 'ar') mr-auto @else ml-auto @endif">
+                @if (count(config('panel.available_languages', [])) > 1)
                     <li class="c-header-nav-item dropdown d-md-down-none">
-                        <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">
                             {{ strtoupper(app()->getLocale()) }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            @foreach(config('panel.available_languages') as $langLocale => $langName)
-                                <a class="dropdown-item" href="{{ url()->current() }}?change_language={{ $langLocale }}">{{ strtoupper($langLocale) }} ({{ $langName }})</a>
+                            @foreach (config('panel.available_languages') as $langLocale => $langName)
+                                <a class="dropdown-item"
+                                    href="{{ url()->current() }}?change_language={{ $langLocale }}">{{ strtoupper($langLocale) }}
+                                    ({{ $langName }})</a>
                             @endforeach
                         </div>
                     </li>
@@ -76,17 +85,17 @@
 
 
                 <div class="container-fluid">
-                    @if(session('message'))
+                    @if (session('message'))
                         <div class="row mb-2">
                             <div class="col-lg-12">
                                 <div class="alert alert-success" role="alert">{{ session('message') }}</div>
                             </div>
                         </div>
                     @endif
-                    @if($errors->count() > 0)
+                    @if ($errors->count() > 0)
                         <div class="alert alert-danger">
                             <ul class="list-unstyled">
-                                @foreach($errors->all() as $error)
+                                @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
@@ -123,127 +132,102 @@
     <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
         $(function() {
-  let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
-  let csvButtonTrans = '{{ trans('global.datatables.csv') }}'
-  let excelButtonTrans = '{{ trans('global.datatables.excel') }}'
-  let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}'
-  let printButtonTrans = '{{ trans('global.datatables.print') }}'
-  let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
-  let selectAllButtonTrans = '{{ trans('global.select_all') }}'
-  let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
+            let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
+            let csvButtonTrans = '{{ trans('global.datatables.csv') }}'
+            let excelButtonTrans = '{{ trans('global.datatables.excel') }}'
+            let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}'
+            let printButtonTrans = '{{ trans('global.datatables.print') }}'
+            let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
+            let selectAllButtonTrans = '{{ trans('global.select_all') }}'
+            let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
 
-  let languages = {
-    'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json',
-        'ar': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json'
-  };
+            let languages = {
+                'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json',
+                'ar': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json'
+            };
 
-  $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
-  $.extend(true, $.fn.dataTable.defaults, {
-    language: {
-      url: languages['{{ app()->getLocale() }}']
-    },
-    columnDefs: [{
-        orderable: false,
-        className: 'select-checkbox',
-        targets: 0
-    }, {
-        orderable: false,
-        searchable: false,
-        targets: -1
-    }],
-    select: {
-      style:    'multi+shift',
-      selector: 'td:first-child'
-    },
-    order: [],
-    scrollX: true,
-    pageLength: 100,
-    dom: 'lBfrtip<"actions">',
-    buttons: [
-      {
-        extend: 'selectAll',
-        className: 'btn-primary',
-        text: selectAllButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        },
-        action: function(e, dt) {
-          e.preventDefault()
-          dt.rows().deselect();
-          dt.rows({ search: 'applied' }).select();
-        }
-      },
-      {
-        extend: 'selectNone',
-        className: 'btn-primary',
-        text: selectNoneButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
-        extend: 'copy',
-        className: 'btn-default',
-        text: copyButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
-        extend: 'csv',
-        className: 'btn-default',
-        text: csvButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
-        extend: 'excel',
-        className: 'btn-default',
-        text: excelButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
-        extend: 'pdf',
-        className: 'btn-default',
-        text: pdfButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
-        extend: 'print',
-        className: 'btn-default',
-        text: printButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      },
-      {
-        extend: 'colvis',
-        className: 'btn-default',
-        text: colvisButtonTrans,
-        exportOptions: {
-          columns: ':visible'
-        }
-      }
-    ]
-  });
+            $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, {
+                className: 'btn'
+            })
+            $.extend(true, $.fn.dataTable.defaults, {
+                language: {
+                    url: languages['{{ app()->getLocale() }}']
+                },
+                columnDefs: [{
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                }],
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                order: [],
+                scrollX: true,
+                pageLength: 10,
+                dom: 'lBfrtip<"actions">',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        className: 'btn-default',
+                        text: copyButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        className: 'btn-default',
+                        text: csvButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn-default',
+                        text: excelButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn-default',
+                        text: pdfButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn-default',
+                        text: printButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        className: 'btn-default',
+                        text: colvisButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }
+                ]
+            });
 
-  $.fn.dataTable.ext.classes.sPageButton = '';
-});
-
+            $.fn.dataTable.ext.classes.sPageButton = '';
+        });
     </script>
     @yield('scripts')
 </body>

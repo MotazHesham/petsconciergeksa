@@ -319,4 +319,10 @@ return [
     'appointment'                    => 'Appointment ',
     'allow'                          => 'Allow ',
     'todayappointment'               => 'Today\'s Appointment ',
+    
+    'main_menus' => [
+        'general_settings' => 'General Settings',
+        'client_managment' => 'Client Managment',
+        'package_managment' => 'Package Managment',
+    ],
 ];
