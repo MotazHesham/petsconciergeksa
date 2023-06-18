@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AboutUs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -98,6 +99,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     //Gallery
     Route::resource('gallery', 'GalleryController');
 
+    //Slider
+    Route::resource('sliders', 'SliderController');
+
     //Comments
     Route::resource('comments', 'CommentsController');
 
@@ -126,7 +130,8 @@ Route::post('/store/new/password/{id}','frontend\FrontendController@storeNewPass
 
 
 Route::get('/forget/password', function () {
-    return view('frontend.forget');
+    $aboutus = AboutUs::first();
+    return view('frontend.forget',compact('aboutus'));
 });
 Route::get('/reset/password/{token}/{id}','frontend\FrontendController@resetPassword');
 

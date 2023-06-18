@@ -256,19 +256,45 @@ VAT registered on 19/04/2022'=>'تشهد الهيئة العامة للزكاة 
     ],
 
 
+    'slider' => [
+        'title'          => 'سلايدر',
+        'title_singular' => 'سلايد',
+        'fields'         => [  
+            'photo' => 'السلايد',
+            'title' => 'العنوان',
+            'body' => 'المحتوي',
+            'button_name' => 'Button Name',
+            'link' => 'link',
+        ],
+
+    ],
     'aboutus' => [
         'title'          => 'اعرف عنا',
         'title_singular' => 'اعرف عنا',
         'fields'         => [
             'update'=>'تحديث',
             'name'=>'الاسم',
-            'image'=>'الصوره',
-            'description'=>'الوصف',
+            'image_about_us'=>'صورة  About Us',
+            'image_our_service'=>'صورة Our Services',
+            'image_easy_quick'=>'صورة  Easy & quick',
+            'image_client_reviews'=>'صورة Client Reviews',
+            'image_packages'=>'صورة  Packeges',
+            'image_contact'=>'صورة  Contact',  
+            'image_login'=>'صورة Login',  
+            'descripton'=>'الوصف',
             'create'=>'اضافه',
             'id'=>'ID',
             'edit'=>'تعديل',
             'mission'=>'المهمه',
             'vision'=>'الرؤيه',
+            'phone' => 'رقم الهاتف',
+            'email' => 'البريد الألكتروني',
+            'address' => 'العنوان',
+            'twitter' => 'Twitter',
+            'facebook' => 'Facebook',
+            'instagram' => 'Instagram',
+            'googleplus' => 'GooglePlus', 
+            'logo' => 'Logo',
         ],
 
     ],

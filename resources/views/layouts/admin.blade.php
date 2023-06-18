@@ -36,7 +36,7 @@
         }
       </style>
     @endif
-    @yield('styles')
+    @yield('styles') 
 </head>
 
 <body class="c-app">

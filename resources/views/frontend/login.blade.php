@@ -8,7 +8,7 @@
 
       <section id="contact" class="pages pages2 no-padding">
 
-         <div class="jumbotron" data-stellar-background-ratio="0.5">
+         <div class="jumbotron" data-stellar-background-ratio="0.5" style="background: url({{URL::asset('storage/app/public/attachment/' . $aboutus->image_login)}});">
 
             <!-- Heading -->
 

@@ -8,7 +8,7 @@
 
       <section id="contact" class="pages no-padding">
 
-         <div class="jumbotron" data-stellar-background-ratio="0.5"   style="background: url(http://pets.vc2030.com/frontend/css/../img/cc.jpg);">
+         <div class="jumbotron" data-stellar-background-ratio="0.5"   style="background: url({{URL::asset('storage/app/public/attachment/' . $aboutus->image_contact)}});">
 
             <!-- Heading -->
 
@@ -30,17 +30,17 @@
 
                      <ul class="list-inline">
 
-                        <li><i class="fa fa-envelope"></i><a href="mailto:youremailaddress">info@petsconciergeksa.com</a></li>
+                        <li><i class="fa fa-envelope"></i><a href="mailto:youremailaddress">{{ $aboutus->email}}</a></li>
 
                          
 
                          <br />
 
-                        <li><i class="fa fa-phone margin-icon"></i>(00966) 555342116</li>
+                        <li><i class="fa fa-phone margin-icon"></i>{{ $aboutus->email }}</li>
 
                          <br />
 
-                        <li><i class="fa fa-map-marker margin-icon"></i> Jeddah , Saudi Arabia</li>
+                        <li><i class="fa fa-map-marker margin-icon"></i>{{ $aboutus->address }}</li>
 
                      </ul>
 

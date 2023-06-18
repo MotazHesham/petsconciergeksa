@@ -58,19 +58,19 @@
 
                     <div class="col-md-5 text-center col-md-offset-1"  >
 
-                        <img src="{{url('/frontend/img/Vector%20Smart%20Object-2.png')}}" class="img-responsive">
+                        <img src="{{url('/public/frontend/img/Vector%20Smart%20Object-2.png')}}" class="img-responsive">
 
 
 
 
 
-                        <img src="{{url('/frontend/img/vision.png')}}" width="80px">
+                        <img src="{{url('/public/frontend/img/vision.png')}}" width="80px">
 
                         <h5 class="font-bold" >OUR Mission</h5>
 
                         <p > {{$aboutus->mission}} </p>
 
-                        <img src="{{url('/frontend/img/Vector%20Smart%20Object.png')}}" class="img-responsive">
+                        <img src="{{url('/public/frontend/img/Vector%20Smart%20Object.png')}}" class="img-responsive">
 
                     </div>
 
@@ -80,19 +80,19 @@
 
                     <div class="col-md-5 text-center  " >
 
-                        <img src="{{url('/frontend/img/Vector%20Smart%20Object-2.png')}}" class="img-responsive">
+                        <img src="{{url('/public/frontend/img/Vector%20Smart%20Object-2.png')}}" class="img-responsive">
 
 
 
 
 
-                        <img src="{{url('/frontend/img/103717.png')}}" width="80px">
+                        <img src="{{url('/public/frontend/img/103717.png')}}" width="80px">
 
                         <h5 class="font-bold">OUR VISION</h5>
 
                         <p > {{$aboutus->vision}} </p>
 
-                        <img src="{{url('/frontend/img/Vector%20Smart%20Object.png')}}" class="img-responsive">
+                        <img src="{{url('/public/frontend/img/Vector%20Smart%20Object.png')}}" class="img-responsive">
 
                     </div>
 

@@ -70,6 +70,10 @@
 
 <body id="page-top">
 
+    @php
+        $aboutus = \App\Models\AboutUs::first();
+    @endphp
+    
 <!-- Preloader -->
 
 <div id="preloader">
@@ -104,7 +108,7 @@
 
                     <!-- logo  -->
 
-                    <img src="{{url('/frontend/img/logo.png')}}" class="img-responsive" alt="">
+                    <img src="{{URL::asset('storage/app/public/attachment/' . $aboutus->logo)}}" class="img-responsive" alt="">
 
                 </a>
 
@@ -172,11 +176,11 @@
 
                     <li ><a href="{{url('/client/my/pets')}}">Profile</a></li>
 
-                    <li class="activeapp" ><a href="{{url('packages')}}"><img src="{{url('/frontend/img/calendar.png')}}" class="Loginicon">Make Appointment</a></li>
+                    <li class="activeapp" ><a href="{{url('packages')}}"><img src="{{url('/public/frontend/img/calendar.png')}}" class="Loginicon">Make Appointment</a></li>
 
                 @else
 
-                <li class="active" ><a href="{{url('client/login')}}"><img src="{{url('/frontend/img/login2.png')}}" class="Loginicon" width="40">login</a></li>
+                <li class="active" ><a href="{{url('client/login')}}"><img src="{{url('/public/frontend/img/login2.png')}}" class="Loginicon" width="40">login</a></li>
 
                 @endif
 
@@ -210,7 +214,7 @@
 
             <!-- Footer logo -->
 
-            <img src="{{url('/frontend/img/logo.png')}}" alt="" class="center-block img-responsive">
+            <img src="{{URL::asset('storage/app/public/attachment/' . $aboutus->logo)}}" alt="" class="center-block img-responsive">
 
         </div>
 
@@ -224,11 +228,11 @@
 
 
 
-                <li><i class="fa fa-phone"></i>(00966) 555342116</li>
+                <li><i class="fa fa-phone"></i>{{ $aboutus->phone }}</li>
 
-                <li><i class="fa fa-envelope"></i> <a href="mailto:your@email.com">  info@petsconciergeksa.com</a></li>
+                <li><i class="fa fa-envelope"></i> <a href="mailto:{{$aboutus->email}}">{{ $aboutus->email }}</a></li>
 
-                <li><i class="fa fa-map-marker"></i>  Jeddah , Saudi Arabia</li>
+                <li><i class="fa fa-map-marker"></i>{{ $aboutus->address }}</li>
 
             </ul>
 
@@ -244,13 +248,13 @@
 
             <div class="social-media">
 
-                <a href="#" title=""><i class="fa fa-twitter"></i></a>
+                <a href="{{ $aboutus->twitter }}" title=""><i class="fa fa-twitter"></i></a>
 
-                <a href="#" title=""><i class="fa fa-facebook"></i></a>
+                <a href="{{ $aboutus->facebook }}" title=""><i class="fa fa-facebook"></i></a>
 
-                <a href="#" title=""><i class="fa fa-google-plus"></i></a>
+                <a href="{{ $aboutus->googleplus }}" title=""><i class="fa fa-google-plus"></i></a>
 
-                <a href="#" title=""><i class="fa fa-instagram"></i></a>
+                <a href="{{ $aboutus->instagram }}" title=""><i class="fa fa-instagram"></i></a>
 
             </div>
 

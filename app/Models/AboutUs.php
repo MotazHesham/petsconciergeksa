@@ -16,11 +16,24 @@ class AboutUs extends Model
     ];
 
     protected $fillable = [
+        'phone',
+        'email',
+        'address',
+        'twitter',
+        'facebook',
+        'instagram',
+        'googleplus',
         'descripton',
         'mission',
         'vision',
-        'image_about_us',
-
+        'logo',
+        'image_login', 
+        'image_about_us', 
+        'image_our_service',
+        'image_easy_quick',
+        'image_client_reviews',
+        'image_packages',
+        'image_contact',
     ];
 
 

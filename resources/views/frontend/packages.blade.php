@@ -2,7 +2,7 @@
 @section('content')
 
     <section id="pricing" class="pages">
-        <div class="jumbotron" style="background: url({{URL::asset('storage/app/public/attachment/' . $aboutus->image)}}" data-stellar-background-ratio="0.5">
+        <div class="jumbotron" style="background: url({{URL::asset('storage/app/public/attachment/' . $aboutus->image_packages)}}" data-stellar-background-ratio="0.5">
             <!-- Heading -->
 {{--            <div class="jumbo-heading" data-stellar-background-ratio="1.2">--}}
 {{--                <h1>Packages</h1>--}}

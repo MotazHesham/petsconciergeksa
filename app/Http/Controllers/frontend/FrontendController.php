@@ -18,6 +18,7 @@ use App\Models\Gallery;
 use App\Models\Packages;
 use App\Models\Pet;
 use App\Models\Service;
+use App\Models\Slider;
 use Gate;
 use Carbon\Carbon;
 use http\Url;
@@ -56,8 +57,9 @@ class FrontendController extends Controller
         $aboutus = AboutUs::first();
         $category = Category::all();
         $gallery = Gallery::all();
+        $sliders = Slider::all();
         $comments =Comments::where('flag','1')->orderBy('id','DESC')->take('4')->get();
-        return view('frontend.index', compact('aboutus', 'category', 'gallery','comments'));
+        return view('frontend.index', compact('aboutus', 'category', 'gallery','comments','sliders'));
     }
 
     public function service()
@@ -91,6 +93,7 @@ class FrontendController extends Controller
     public function contact(Request $request)
     {
 
+        $aboutus = AboutUs::first();
         if ($request->post())
         {
             Contact::create($request->all());
@@ -101,9 +104,9 @@ class FrontendController extends Controller
             $objDemo->subject = $request->subject;
             $objDemo->message = $request->message;
             Mail::to('info@petsconciergeksa.com')->send(new \App\Mail\Contact($objDemo));
-            return view('frontend.contact');
+            return view('frontend.contact',compact('aboutus'));
         }else{
-            return view('frontend.contact');
+            return view('frontend.contact',compact('aboutus'));
         }
     }
 
@@ -123,12 +126,14 @@ class FrontendController extends Controller
             Auth::guard('client')->login($client);
             return redirect('/client/profile');
         }
-        return view('frontend.login');
+        $aboutus = AboutUs::first();
+        return view('frontend.login',compact('aboutus'));
     }
 
     public function verify(Request $request,$id)
     {
         $user = Clients::find($id);
+        $aboutus = AboutUs::first();
         if ($request->post() && $user->status ==0){
             if ($request->code == $user->code){
                 $user->status = 1;
@@ -142,7 +147,7 @@ class FrontendController extends Controller
             }
         }else{
             if ($user)
-                return view('frontend.verify',compact('id'));
+                return view('frontend.verify',compact('id','aboutus'));
             else
                 return redirect('client/register');
 
@@ -183,7 +188,8 @@ class FrontendController extends Controller
             }
         }
         $cities = Cities::all();
-        return view('frontend.register',compact('cities'));
+        $aboutus = AboutUs::first();
+        return view('frontend.register',compact('cities','aboutus'));
     }
 
     public function gallery()
@@ -216,7 +222,8 @@ class FrontendController extends Controller
             return view('frontend.users.appointment', compact('pets','id', 'addons'));
         }
         else {
-            return view('frontend.login');
+            $aboutus = AboutUs::first();
+            return view('frontend.login',compact('aboutus'));
         }
     }
 
@@ -428,8 +435,9 @@ class FrontendController extends Controller
     public function resetPassword($token,$id)
     {
         $client = Clients::where('id',$id)->where('token',$token)->first();
+        $aboutus = AboutUs::first();
         if ($client)
-            return view('frontend.resetMyPassword',compact('id'));
+            return view('frontend.resetMyPassword',compact('id','aboutus'));
         else
             return redirect('forget/password')->with('error','something wrong please try again');
     }

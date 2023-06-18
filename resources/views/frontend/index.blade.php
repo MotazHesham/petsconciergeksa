@@ -17,70 +17,37 @@
 
         <div class="slider">
 
-            <!-- Slide 1 -->
+            @foreach($sliders as $key => $slider)
+                <div class="slide slide-{{ $key }}" style="background-image:url({{URL::asset('storage/app/public/attachment/' . $slider->photo)}})">
 
-            <div class="slide slide-0 active" style="background-image:url('{{ url('/frontend/img/slide1.jpg') }}')">
+                    <div class="slide__bg"></div>
 
-                <div class="slide__bg"></div>
+                    <div class="slide__content">
 
-                <div class="slide__content">
+                        <div class="slide__overlay">
 
-                    <div class="slide__overlay">
+                        </div>
 
-                    </div>
+                        <!-- slide text-->
 
-                    <!-- slide text-->
+                        <div class="slide__text">
 
-                    <div class="slide__text">
+                            <h1 class="slide__text-heading">{{ $slider->title }} </h1>
 
-                        <h1 class="slide__text-heading">Welcome to Pets Concierge</h1>
+                            <div class="hidden-mobile">
 
-                        <div class="hidden-mobile">
+                                <p class="lead">{{ $slider->body }}</p>
 
-                            <p class="lead"> The best mobile pet grooming services </p>
+                                <a href="{{ url($slider->link) }}" class="btn btn-default">{{ $slider->button_name }}</a>
 
-                            <a href="{{ url('aboutus') }}" class="btn btn-default">Explore Now </a>
+                            </div> 
 
                         </div>
 
                     </div>
 
                 </div>
-
-            </div>
-
-            <!-- Slide 0 -->
-
-            <div class="slide slide-1" style="background-image:url('{{ url('/frontend/img/slide0.jpg') }}')">
-
-                <div class="slide__bg"></div>
-
-                <div class="slide__content">
-
-                    <div class="slide__overlay">
-
-                    </div>
-
-                    <!-- slide text-->
-
-                    <div class="slide__text">
-
-                        <h1 class="slide__text-heading">Book an Appointment </h1>
-
-                        <div class="hidden-mobile">
-
-                            <p class="lead">We Style Your pet at your door step</p>
-
-                            <a href="{{ url('packages') }}" class="btn btn-default">Book Now</a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+            @endforeach
 
 
 
@@ -163,7 +130,7 @@
 
                 <div class="col-md-4 col-lg-4">
 
-                    <img src="{{ url('/frontend/img/about.png') }}" class="img-responsive">
+                    <img src="{{URL::asset('storage/app/public/attachment/' . $aboutus->image_our_service)}}" class="img-responsive">
 
                 </div>
 
@@ -392,7 +359,7 @@
 
                 <!-- /col-md-6 -->
 
-                <div class="col-md-3"> <img src="{{URL::asset('storage/app/public/attachment/' . $aboutus->image_about_us)}}" class="img-responsive dog-home">
+                <div class="col-md-3"> <img src="{{URL::asset('storage/app/public/attachment/' . $aboutus->image_easy_quick)}}" class="img-responsive dog-home">
                 </div>
 
             </div>
@@ -450,7 +417,7 @@
                                     </div>
 
                                     <blockquote>
-                                        {!! $comment->$comment !!}
+                                        {!! $comment->comment !!}
                                     </blockquote>
 
                                 </div>

@@ -223,19 +223,47 @@ VAT registered on 19/04/2022',
 
     ],
 
+
+    'slider' => [
+        'title'          => 'Sliders',
+        'title_singular' => 'Slide',
+        'fields'         => [  
+            'photo' => 'Slider',
+            'title' => 'Title',
+            'body' => 'Body',
+            'link' => 'link',
+            'button_name' => 'Button Name',
+        ],
+
+    ],
+
     'aboutus' => [
         'title'          => 'About Us',
         'title_singular' => 'About Us',
         'fields'         => [
             'update'=>'update',
             'name'=>'Name',
-            'image'=>'Image',
+            'image_about_us'=>'Image About Us',
+            'image_our_service'=>'Image Our Services',
+            'image_easy_quick'=>'Image Easy & quick',
+            'image_client_reviews'=>'Image Client Reviews',
+            'image_packages'=>'Image Packeges',
+            'image_contact'=>'Image Contact',  
+            'image_login'=>'Image Login',  
             'create'=>'Create',
             'id'=>'ID',
             'edit'=>'Edit',
             'mission'=>'Mission',
             'vision'=>'Vision',
-            'description'=>'Description',
+            'description'=>'Description', 
+            'phone' => 'Phone',
+            'email' => 'Email',
+            'address' => 'Address',
+            'twitter' => 'Twitter',
+            'facebook' => 'Facebook',
+            'instagram' => 'Instagram',
+            'googleplus' => 'GooglePlus', 
+            'logo' => 'Logo',
         ],
 
 
