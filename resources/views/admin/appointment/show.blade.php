@@ -53,6 +53,8 @@
                         </th>
                         <td>
                             {{ $appointment->client->name ?? ''}}
+                            <br>
+                            ({{ $appointment->pet->instagram_account ?? '' }})
                         </td>
                     </tr>
 

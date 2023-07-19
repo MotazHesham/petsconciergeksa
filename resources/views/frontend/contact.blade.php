@@ -6,16 +6,13 @@
 
       <!-- Section Contact -->
 
-      <section id="contact" class="pages no-padding">
+      <section id="contact" class="pages no-padding"> 
 
-         <div class="jumbotron" data-stellar-background-ratio="0.5"   style="background: url({{URL::asset('storage/app/public/attachment/' . $aboutus->image_contact)}});">
-
-            <!-- Heading -->
-
-        
-
-         </div>
-
+      <div class="inside-banner">
+         <img src="{{URL::asset('storage/app/public/attachment/' . $aboutus->image_contact)}}" class="img-responsive">
+         <!-- Heading -->
+      
+      </div>
          <!-- container -->
 
          <div class="container">
@@ -36,7 +33,7 @@
 
                          <br />
 
-                        <li><i class="fa fa-phone margin-icon"></i>{{ $aboutus->email }}</li>
+                        <li><i class="fa fa-phone margin-icon"></i>{{ $aboutus->phone }}</li>
 
                          <br />
 
@@ -56,7 +53,7 @@
 
                <div class="col-lg-6 col-md-6 col-lg-offset-1 col-md-offset-1 res-margin">
 
-			     <h3>Write us</h3>
+			     <h3>Contact us</h3>
 
                   <!-- Form Starts -->
 

@@ -1,16 +1,51 @@
 @extends('frontend.master')
 @section('content')
 
-    <section id="pricing" class="pages">
-        <div class="jumbotron" style="background: url({{URL::asset('storage/app/public/attachment/' . $aboutus->image_packages)}}" data-stellar-background-ratio="0.5">
-            <!-- Heading -->
-{{--            <div class="jumbo-heading" data-stellar-background-ratio="1.2">--}}
-{{--                <h1>Packages</h1>--}}
-{{--            </div>--}}
-        </div>
+    <section id="pricing" class="pages"> 
+      <div class="inside-banner">
+         <img src="{{URL::asset('storage/app/public/attachment/' . $aboutus->image_packages)}}" class="img-responsive">
+         <!-- Heading -->
+      
+      </div>
         <!-- container -->
         <div class="container">
 
+
+         <row>
+            <h3 class="text-center">Pets Concierge size guide line</h3>
+            <br />
+         </row>
+         
+         <div class="row">
+            <div class="col-md-2 col-xs-4">
+               <img src="{{url('/frontend/img/cate-size-sm.png')}}" class="img-responsive bo-r-20">
+            </div>
+
+            <div class="col-md-2 col-xs-4">
+               <img src="{{url('/frontend/img/cate-size-large.png')}}" class="img-responsive  bo-r-20">
+            </div>
+
+            <div class="col-md-2"></div>
+
+
+
+            <div class="col-md-2 col-xs-4">
+               <img src="{{url('/frontend/img/dog-size-sm.png')}}" class="img-responsive bo-r-20">
+            </div>
+
+            <div class="col-md-2  col-xs-4">
+               <img src="{{url('/frontend/img/dog-size-md.png')}}" class="img-responsive  bo-r-20">
+            </div>
+
+            <div class="col-md-2 col-xs-4">  <img src="{{url('/frontend/img/dog-size-large.png')}}" class="img-responsive  bo-r-20"></div>
+
+            
+            </div>
+            <!-- /col-md-6 -->
+            <!-- image -->
+         
+            <!-- /col-md-3 -->
+      
             <!-- /row -->
             <div class="price-table margin1">
                 <!-- Price table 1 -->
@@ -30,6 +65,7 @@
                         </header>
                         <!-- plan features -->
                         <ul class="plan-features">
+                            @if ($package->services_id && $package->services_id != 'null')
                             @foreach(json_decode($package->services_id) as $key=>$service)
                                 <?php
                                     $serviceID = \App\Models\Service::find($service);
@@ -37,6 +73,7 @@
                                 <li>{{$key+1 .': '. $serviceID->name}}
                                 </li>
                                 @endforeach
+                            @endif
                         </ul>
                         <!--/ plan features -->
                         <!-- button -->
@@ -56,6 +93,8 @@
                                 </div>
                         <div class="text-center">
                             <a class="btn" href="{{url('client/appointment/'.$package->id)}}">Book An Appointment</a>
+                            <br><br>
+                            <b>Inclusive VAT</b>
                         </div>
                         <!-- /text-center -->
                     </div>

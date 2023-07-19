@@ -29,6 +29,7 @@ class Pet extends Model
         'name',
         'age',
         'gender',
+        'instagram_account',
 
     ];
 

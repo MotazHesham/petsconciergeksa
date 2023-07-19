@@ -344,6 +344,7 @@ class FrontendController extends Controller
         $appointment->user_id = Auth::guard('client')->user()->id;
         $appointment->date = $request->date;
         $appointment->time = $request->time;
+        $appointment->additional_info = $request->additional_info;
         $appointment->pet_id = $request->pet_id;
         $appointment->package_id = $request->package_id;
         if ($request->addon_id)
@@ -437,7 +438,7 @@ class FrontendController extends Controller
                 $appo->save();
             }
             
-            // Mail::to('info@petsconciergeksa.com')->send(new \App\Mail\Appointment($objDemo));
+            Mail::to('info@petsconciergeksa.com')->send(new \App\Mail\Appointment($objDemo));
             return redirect()->back()->with('success','Created successfully');
 
         }
@@ -445,7 +446,7 @@ class FrontendController extends Controller
 
     public function getTime($date)
     {
-        $allTimes = ['10:00','11:30','13:00','16:00','17:30','19:00'];
+        $allTimes = ['10:00','11:30','1:00','4:00','5:30','7:00'];
         $appintments =Appointment::where('date',$date)->pluck('time')->toArray();
         if (!$appintments)
             return $allTimes;

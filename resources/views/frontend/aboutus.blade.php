@@ -4,29 +4,19 @@
 
 
 
-    <section id="about" class="pages">
-
-        <div class="jumbotron" style="background: url({{URL::asset('storage/app/public/attachment/' . $aboutus->image_about_us)}}" data-stellar-background-ratio="0.5">
-
-            <!-- Heading -->
-
-
-
-        </div>
-
+    <section id="about" class="pages"> 
+      <div class="inside-banner">
+         <img src="{{URL::asset('storage/app/public/attachment/' . $aboutus->image_about_us)}}" class="img-responsive">
+         <!-- Heading -->
+      
+      </div>
         <!-- container -->
 
         <div class="container">
 
             <div class="row">
 
-
-
-                <div class="col-md-4 col-lg-4 col-md-offset-4">
-
-                    <img src="{{URL::asset('storage/app/public/attachment/' . $aboutus->image_about_us)}}" class="img-responsive">
-
-                </div>
+ 
 
                 <div class="col-lg-12 col-md-12 text-center">
 

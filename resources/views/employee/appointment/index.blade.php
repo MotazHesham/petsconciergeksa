@@ -57,6 +57,8 @@
                                 </td>
                                 <td>
                                     {{ $appointment->pet->name ?? '' }}
+                                    <br>
+                                    ({{ $appointment->additional_info }})
                                 </td>
 
                                 <td>

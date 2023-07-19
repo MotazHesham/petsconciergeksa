@@ -57,6 +57,10 @@
                                 <label>Pet Age:<span class="required"></span></label>
                                 <input type="number" name="age" class="form-control input-field" >
 
+                                <label>We would love to add a photo of your pet on instagram, if you are ok with that kindly provide your account
+                                </label>
+                                <input type="text" class="form-control" name="instagram_account">
+
                                 <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Add Now</button>
                             </form>
                         </div>

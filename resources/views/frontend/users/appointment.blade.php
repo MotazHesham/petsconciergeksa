@@ -82,6 +82,11 @@
                             </div>
 
                             <div class="two-cols">
+                                <label>Any additional information we should know about your pet?
+                                    <textarea name="additional_info" id="" cols="30" rows="4" placeholder="Ex: pregnant, aggressive, so On ...."></textarea>
+                                </label>
+                            </div>
+                            <div class="two-cols">
 
                                 <label>Size
 
@@ -235,6 +240,17 @@
 
     <script>
         function selectTime() {
+
+            // disable sunday
+            const picker = document.getElementById('date');
+            picker.addEventListener('input', function(e){
+                var day = new Date(this.value).getUTCDay();
+                if([7,0].includes(day)){
+                    e.preventDefault();
+                    this.value = '';
+                    alert('Sunday Is Off');
+                }
+            });
 
             var date = $('#date').val();
 

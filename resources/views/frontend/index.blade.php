@@ -1,61 +1,19 @@
 @extends('frontend.master')
 
 @section('content')
-    <!-- Full Page Image Background Slider -->
+    <!-- Full Page Image Background Slider --> 
 
-    <div class="slider-container">
-
-        <!-- Controls -->
-
-        <div class="slider-control left inactive"></div>
-
-        <div class="slider-control right"></div>
-
-        <ul class="slider-pagi"></ul>
-
-        <!--Slider -->
-
-        <div class="slider">
-
-            @foreach($sliders as $key => $slider)
-                <div class="slide slide-{{ $key }}" style="background-image:url({{URL::asset('storage/app/public/attachment/' . $slider->photo)}})">
-
-                    <div class="slide__bg"></div>
-
-                    <div class="slide__content">
-
-                        <div class="slide__overlay">
-
-                        </div>
-
-                        <!-- slide text-->
-
-                        <div class="slide__text">
-
-                            <h1 class="slide__text-heading">{{ $slider->title }} </h1>
-
-                            <div class="hidden-mobile">
-
-                                <p class="lead">{{ $slider->body }}</p>
-
-                                <a href="{{ url($slider->link) }}" class="btn btn-default">{{ $slider->button_name }}</a>
-
-                            </div> 
-
-                        </div>
-
-                    </div>
-
-                </div>
-            @endforeach
-
-
-
-
-        </div>
-
-        <!--/Slider-->
-
+    <div id="demo1">
+        @foreach($sliders as $key => $slider) 
+          <div class="slide">
+            <img src="{{URL::asset('storage/app/public/attachment/' . $slider->photo)}}" />
+            <!--Slider Description example-->
+             <div class="slide-desc">
+                <h2>{{ $slider->title }}</h2>
+                <p>{{ $slider->body }}. <a class="more" href="{{ url($slider->link) }}">{{ $slider->button_name }}</a></p>
+            </div>
+         </div> 
+        @endforeach  
     </div>
 
     <!--/ Slider ends -->

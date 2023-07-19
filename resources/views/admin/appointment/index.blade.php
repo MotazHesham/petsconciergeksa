@@ -87,6 +87,8 @@
                                 </td>
                                 <td>
                                     {{ $appointment->package->name ?? '' }}
+                                    <br>
+                                    ({{ $appointment->additional_info }})
                                     @if($appointment->addon_id != null)
                                         <hr>
                                         @foreach(json_decode($appointment->addon_id) as $id)
