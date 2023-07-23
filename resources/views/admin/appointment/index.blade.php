@@ -88,7 +88,7 @@
                                     <span class="badge badge-success"> Type : {{ $appointment->pet->category->name ?? '' }}</span>
                                     <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
                                     <br>
-                                    ({{ $appointment->additional_info }})
+                                    @if($appointment->additional_info)({{ $appointment->additional_info }}) @endif
                                 </td>
                                 <td>
                                     {{ $appointment->package->name ?? '' }}
