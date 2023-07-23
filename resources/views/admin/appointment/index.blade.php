@@ -54,6 +54,8 @@
                                 </td>
                                 <td>
                                     {{ $appointment->client->name ?? '' }}
+                                    <br>
+                                    {{ $appointment->client->email ?? '' }}
                                 </td>
                                 <td>
                                     {{ $appointment->client->phone ?? '' }}
@@ -83,7 +85,10 @@
                                     {{ $appointment->pet->name ?? '' }} 
                                     <br>
                                     <span class="badge badge-danger"> AGE : {{ $appointment->pet->age ?? '' }}</span>
+                                    <span class="badge badge-success"> Type : {{ $appointment->pet->category->name ?? '' }}</span>
                                     <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
+                                    <br>
+                                    ({{ $appointment->additional_info }})
                                 </td>
                                 <td>
                                     {{ $appointment->package->name ?? '' }}
@@ -113,6 +118,12 @@
                                         href="{{ route('admin.appointment.show', $appointment->id) }}">
                                         {{ trans('global.show') }}
                                     </a>
+                                    @if($appointment->status != 2) 
+                                        <a class="btn btn-xs btn-danger"
+                                            href="{{ route('admin.appointment.destroy', $appointment->id) }}" onclick="return confirm('{{ trans('global.areYouSure') }}');">
+                                            {{ trans('global.delete') }}
+                                        </a>
+                                    @endif
                                     <a class="btn btn-xs btn-info"
                                         href="{{ route('admin.appointment.edit', $appointment->id) }}">
                                         {{ trans('global.assign') }}

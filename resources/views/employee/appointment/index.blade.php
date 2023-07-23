@@ -44,7 +44,7 @@
                                     {{ $appointment->id ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $appointment->client->name ?? '' }}
+                                    {{ $appointment->client->name ?? '' }} 
                                 </td>
                                 <td>
                                     {{ $appointment->client->email ?? '' }}
@@ -56,7 +56,11 @@
                                     {{ $appointment->date ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $appointment->pet->name ?? '' }}
+                                    {{ $appointment->pet->name ?? '' }} 
+                                    <br>
+                                    <span class="badge badge-danger"> AGE : {{ $appointment->pet->age ?? '' }}</span>
+                                    <span class="badge badge-success"> Type : {{ $appointment->pet->category->name ?? '' }}</span>
+                                    <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
                                     <br>
                                     ({{ $appointment->additional_info }})
                                 </td>

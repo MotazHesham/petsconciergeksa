@@ -67,7 +67,7 @@ class EmployeeDashboardController extends Controller
     {
         $appointments = Appointment::where('emp_id', Auth::guard('employee')->user()->id)
             ->where('status','2')
-            ->with('client', 'pet', 'package')->orderBy('id','DESC')->get();
+            ->with('client', 'pet.category', 'package')->orderBy('id','DESC')->get();
 
         return view('employee.appointment.index', compact('appointments'));
     }
@@ -94,7 +94,7 @@ class EmployeeDashboardController extends Controller
         $appointments = Appointment::where('emp_id', Auth::guard('employee')->user()->id)
             ->whereDate('date','=',date('Y-m-d'))
             ->where('status','1')
-            ->with('client', 'pet', 'package')->orderBy('id','DESC')->get();
+            ->with('client', 'pet.category', 'package')->orderBy('id','DESC')->get();
         return view('employee.appointment.todayappointment', compact('appointments'));
 
     }

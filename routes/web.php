@@ -57,6 +57,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('appointments', 'ClientsController@appointment')->name('appointment.index');
     Route::get('appointments/edit{id}', 'ClientsController@editAppointment')->name('appointment.edit');
     Route::post('assignAppointment/{id}', 'ClientsController@assignAppointment')->name('appointment.assign');
+    Route::get('appointments/destroy/{id}', 'ClientsController@destroy_appointment')->name('appointment.destroy');
     Route::get('showAppointment/{id}', 'ClientsController@showAppointment')->name('appointment.show');
 
     Route::resource('supplier', 'SupplierController');

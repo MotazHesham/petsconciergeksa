@@ -84,7 +84,7 @@ class ClientsController extends Controller
     //Appointments ----------------------------------------------------------------------
     public function appointment()
     {
-        $appointments = Appointment::with('client')->orderBy('id','DESC')->get(); 
+        $appointments = Appointment::with('client','pet.category')->orderBy('id','DESC')->get(); 
         return view('admin.appointment.index', compact('appointments'));
     }
 
@@ -109,5 +109,11 @@ class ClientsController extends Controller
         $appointment = Appointment::find($id);
 
         return view('admin.appointment.show', compact('appointment'));
+    }
+
+    public function destroy_appointment($id){
+        $appointment = Appointment::find($id);
+        $appointment->delete();
+        return redirect()->route('admin.appointment.index');
     }
 }

@@ -66,7 +66,12 @@
                                 <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
                             </td>
                             <td>
-                                {{ $appointment->package->name ?? '' }}
+                                {{ $appointment->pet->name ?? '' }} 
+                                <br>
+                                <span class="badge badge-danger"> AGE : {{ $appointment->pet->age ?? '' }}</span>
+                                <span class="badge badge-success"> Type : {{ $appointment->pet->category->name ?? '' }}</span>
+                                <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
+                                <br>
                                 @if($appointment->is_it_loyalty_appoint)
                                 <br>
                                     <span class="badge badge-danger">it's loyalty Card</span>
