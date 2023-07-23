@@ -194,7 +194,6 @@
                             <p>Confirmation requested by</p>
 
                             <div class="inline">
-
                                 <label>
 
                                     <input type="radio" name="Confirmation requested by" value="email" checked>
@@ -213,6 +212,10 @@
                                 data-action='submit'>Send
 
                         </button>
+                        <br>
+                        <small>Additional 50 SAR to obhur</small>
+                        <br>
+                        <small>We do not sedate your pet </small>
 
                     </form>
 
