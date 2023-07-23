@@ -66,7 +66,6 @@ class EmployeeDashboardController extends Controller
     public function appointment()
     {
         $appointments = Appointment::where('emp_id', Auth::guard('employee')->user()->id)
-            ->where('status','2')
             ->with('client', 'pet.category', 'package')->orderBy('id','DESC')->get();
 
         return view('employee.appointment.index', compact('appointments'));
