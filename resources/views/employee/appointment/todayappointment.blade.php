@@ -19,10 +19,13 @@
                             {{ trans('cruds.appointment.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.clients.fields.phone') }}
+                            {{ trans('cruds.appointment.fields.email') }}
                         </th>
                         <th>
                             {{ trans('cruds.appointment.fields.address') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.clients.fields.phone') }}
                         </th>
                         <th>
                             {{ trans('cruds.appointment.fields.date') }}
@@ -49,12 +52,15 @@
                             </td>
                             <td>
                                 {{ $appointment->client->name ?? '' }}
+                            </td> 
+                            <td>
+                                {{ $appointment->client->email ?? '' }}
+                            </td> 
+                            <td>
+                                <a href="https://www.google.com/maps/?q={{$appointment->client->lat}},{{$appointment->client->lng}}" target="_blank">{{$appointment->client->address}}</a>
                             </td>
                             <td>
                                 {{ $appointment->client->phone ?? '' }}
-                            </td>
-                            <td>
-                                <a href="https://www.google.com/maps/?q={{$appointment->client->lat}},{{$appointment->client->lng}}" target="_blank">{{$appointment->client->address}}</a>
                             </td>
                             <td>
                                 {{ $appointment->date .' '.$appointment->time }}

@@ -360,6 +360,7 @@ VAT registered on 19/04/2022'=>'تشهد الهيئة العامة للزكاة 
             'price'=>'السعر',
             'client'=>'العميل',
             'addons'=>'الاضافات',
+            'created_at'=>'Created At',
         ],
     ],
 
