@@ -23,7 +23,7 @@
         <input type="checkbox" id="flip" />
         <div class="cover">
             <div class="front">
-                <img src="{{ asset('public/login/images/frontImg.jpg') }}" alt="" />
+                <img src="{{ asset('public/login/images/1.jpg') }}" alt="" />
                 <div class="text">
                     <span class="text-1">SignIn <br /> </span>
                     <span class="text-2">Let's get connected</span>
