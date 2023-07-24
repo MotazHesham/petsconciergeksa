@@ -60,7 +60,7 @@ class FrontendController extends Controller
         $sliders = Slider::all();
         $addons_right = Addons::where('active',1)->orderBy('updated_at','desc')->get()->take(3);
         $addons_left = Addons::where('active',1)->orderBy('updated_at','asc')->get()->take(3); 
-        $comments =Comments::where('flag','1')->orderBy('id','DESC')->take('4')->get();
+        $comments =Comments::where('flag','1')->with('client','appointment')->orderBy('id','DESC')->take('4')->get();
         return view('frontend.index', compact('aboutus', 'category', 'gallery','comments','sliders','addons_right','addons_left'));
     }
 
@@ -211,7 +211,7 @@ class FrontendController extends Controller
 
     public function visits()
     {
-        $appointments = Appointment::with('comment')->where('user_id', Auth::guard('client')->user()->id)->where('is_it_loyalty_appoint',0)->orderBy('id','desc')->paginate(10); 
+        $appointments = Appointment::with('comment','pet','package')->where('user_id', Auth::guard('client')->user()->id)->where('is_it_loyalty_appoint',0)->orderBy('id','desc')->paginate(10); 
         return view('frontend.users.allvisits', compact('appointments'));
     }
 
@@ -220,7 +220,7 @@ class FrontendController extends Controller
         $pets = Pet::where('client_id', Auth::guard('client')->user()->id)->get();
         $have_loyalty_card = 0;
         $aboutus = AboutUs::first();
-        $appointment_count = Appointment::where('status',2)->where('user_id',Auth::guard('client')->user()->id)->where('is_counted_as_loyalty',0)->where('is_it_loyalty_appoint',0)->count();
+        $appointment_count = Appointment::with('comment','pet','package')->where('status',2)->where('user_id',Auth::guard('client')->user()->id)->where('is_counted_as_loyalty',0)->where('is_it_loyalty_appoint',0)->count();
         if($appointment_count >= $aboutus->count_to_loyalty){
             $have_loyalty_card = 1;
         }
@@ -447,7 +447,7 @@ class FrontendController extends Controller
     public function getTime($date)
     {
         $allTimes = ['10:00','11:30','1:00','4:00','5:30','7:00'];
-        $appintments =Appointment::where('date',$date)->pluck('time')->toArray();
+        $appintments =Appointment::where('date',$date)->pluck('time')->toArray(); 
         if (!$appintments)
             return $allTimes;
         $diffTimes  =array_diff($allTimes,$appintments);

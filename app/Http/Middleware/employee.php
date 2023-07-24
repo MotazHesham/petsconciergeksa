@@ -11,7 +11,12 @@ class employee
     public function handle($request, Closure $next)
     {
         if(Auth::guard('employee')->user() != null){
-            return $next($request);
+            if(!Auth::guard('employee')->user()->approved) {
+                Auth::guard('employee')->logout();
+                return redirect('/employee/login')->with('message', trans('global.yourAccountNeedsAdminApproval'));
+            }else{ 
+                return $next($request);
+            }
         }else {
             return redirect('/employee/login')->with('error', "you should login");
         }

@@ -10,9 +10,7 @@
         <form method="POST" action="{{ route("admin.package.update", [$package->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
-            <div class="row">
-
-
+            <div class="row"> 
                 <div class="form-group col-md-6">
                     <label class="required" for="title">{{ trans('cruds.package.fields.name') }}</label>
                     <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ $package->name }}" required>
@@ -58,7 +56,7 @@
 
                     <select name="services_id[]" multiple class="form-control">
                         @foreach($services as $service)
-                            <option value="{{$service->id}}">{{$service->name}}</option>
+                            <option value="{{$service->id}}" @if(in_array($service->id,json_decode($package->services_id))) selected @endif>{{$service->name}}</option>
                         @endforeach
                     </select>
 

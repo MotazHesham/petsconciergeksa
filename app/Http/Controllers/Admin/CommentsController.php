@@ -19,7 +19,7 @@ class CommentsController extends Controller
 {
     public function index()
     {
-        $comments = Comments::orderBy('id','DESC')->get();
+        $comments = Comments::with('client')->orderBy('id','DESC')->get();
         return view('admin.comments', compact('comments'));
     }
 

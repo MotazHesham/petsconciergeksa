@@ -28,10 +28,11 @@ class EmployeeDashboardController extends Controller
         if ($request->post()){
             $client =Employee::where('email',$request->email)->first();
             if ($client == null){
-                return redirect()->back()->with('error','email not exist');
-            }else if(!Hash::check($request->password, $client->password))
-            {
-                return redirect()->back()->with('error',"incorrect password");
+                return redirect()->back()->withInput()->withErrors(['email' => 'Email not exist']);
+            }else if(!Hash::check($request->password, $client->password)){
+                return redirect()->back()->withInput()->withErrors(['password' => "Incorrect password"]);
+            }else if(!$client->approved){
+                return redirect()->back()->withInput()->with('message', trans('global.yourAccountNeedsAdminApproval'));
             }
             Auth::guard('employee')->login($client);
             return redirect('/employee/todayappointment');
@@ -85,6 +86,7 @@ class EmployeeDashboardController extends Controller
         $appointment->comment = $request->comment;
         $appointment->save();
 
+        toast(trans('flash.global.update_title'),'success');
         return redirect(Route('employee.appointment.index'));
     }
 

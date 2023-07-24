@@ -27,6 +27,9 @@
                                 {{ trans('cruds.clients.fields.address') }}
                             </th>
                             <th>
+                                {{ trans('cruds.clients.fields.appointments_count') }}
+                            </th>
+                            <th>
                                 {{ trans('cruds.clients.fields.active') }}
                             </th>
                             <th>
@@ -35,36 +38,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($clients as $key => $permission)
-                            <tr data-entry-id="{{ $permission->id }}">
+                        @foreach ($clients as $key => $client)
+                            <tr data-entry-id="{{ $client->id }}">
 
                                 <td>
-                                    {{ $permission->id ?? '' }}
+                                    {{ $client->id ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $permission->name ?? '' }}
+                                    {{ $client->name ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $permission->email ?? '' }}
+                                    {{ $client->email ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $permission->phone ?? '' }}
+                                    {{ $client->phone ?? '' }}
                                 </td>
                                 <td>
-                                    @if ($permission->lat && $permission->lng)
-                                        <a href="https://www.google.com/maps/?q={{ $permission->lat }},{{ $permission->lng }}"
-                                            target="_blank">{{ $permission->address }}</a>
+                                    @if ($client->lat && $client->lng)
+                                        <a href="https://www.google.com/maps/?q={{ $client->lat }},{{ $client->lng }}"
+                                            target="_blank">{{ $client->address }}</a>
                                     @endif
                                 </td>
+                                <td>{{ $client->appointments_count > 0 ? $client->appointments_count : '' }}</td>
                                 <td >
-                                    @if ($permission->status == 0)
+                                    @if ($client->status == 0)
                                         No
-                                    @elseif($permission->status == 1)
-                                        Yes @if ($permission->status != 0) <i class="fas fa-check-circle" style="color:rgb(44, 189, 104)"></i> @endif
+                                    @elseif($client->status == 1)
+                                        Yes @if ($client->status != 0) <i class="fas fa-check-circle" style="color:rgb(44, 189, 104)"></i> @endif
                                     @endif
                                 </td>
                                 <td> 
-                                    <form action="{{ route('admin.clients.destroy', $permission->id) }}" method="POST"
+                                    <a class="btn btn-xs btn-primary"
+                                        href="{{ route('admin.clients.show', $client->id) }}">
+                                        Pets Info
+                                    </a>
+                                    <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST"
                                         onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
                                         style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">

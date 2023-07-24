@@ -37,6 +37,7 @@ class SliderController extends Controller
         }
 
         $slider = Slider::create($data);
+        toast(trans('flash.global.success_title'),'success');
         return redirect()->route('admin.sliders.index');
     }
 
@@ -65,6 +66,7 @@ class SliderController extends Controller
 
         $slider->update($data);
 
+        toast(trans('flash.global.update_title'),'success');
         return redirect()->route('admin.sliders.index');
     }
 
@@ -73,6 +75,7 @@ class SliderController extends Controller
     {
         $slider=Slider::find($id);
         $slider->delete();
+        alert(trans('flash.deleted'),'','success');
         return back();
     }
 }

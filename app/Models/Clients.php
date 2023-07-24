@@ -45,4 +45,10 @@ class Clients extends Authenticatable
     {
         return $this->belongsTo('App\Models\Cities','city_id');
     }
+    public function appointments(){
+        return $this->hasMany(Appointment::class,'user_id');
+    }
+    public function pets(){
+        return $this->hasMany(Pet::class,'client_id');
+    }
 }

@@ -6,36 +6,28 @@
         </a>
     </div>
 
-    <ul class="c-sidebar-nav">
-{{--        <li class="c-sidebar-nav-item">--}}
-{{--            <a href="" class="c-sidebar-nav-link">--}}
-{{--                <i class="c-sidebar-nav-icon fas fa-fw fa-tachometer-alt">--}}
+    <ul class="c-sidebar-nav"> 
 
-{{--                </i>--}}
-{{--                {{ trans('global.dashboard') }}--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link {{ request()->is('employee/todayappointment') || request()->is('employee/todayappointment/*') ? 'c-active' : '' }}" href="{{ url('employee/todayappointment') }}">
+                <i class="fa-fw far fa-calendar-check c-sidebar-nav-icon">
+                </i>
+                {{ trans('cruds.appointment.fields.todayappointments') }}
+            </a>
+        </li>
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link {{ request()->is('employee/appointment') || request()->is('employee/appointment/*') ? 'c-active' : '' }}" href="{{ route('employee.appointment.index') }}">
+                <i class="fa-fw far fa-calendar-alt c-sidebar-nav-icon">
+                </i>
+                {{ trans('cruds.appointment.title_singular') }}
+            </a>
+        </li>
+
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link {{ request()->is('employee/password') || request()->is('employee/password/*') ? 'c-active' : '' }}" href="{{ route('employee.password.edit') }}">
                 <i class="fa-fw fas fa-key c-sidebar-nav-icon">
                 </i>
                 {{ trans('global.change_password') }}
-            </a>
-        </li>
-
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link {{ request()->is('employee/appointment') || request()->is('employee/appointment/*') ? 'c-active' : '' }}" href="{{ route('employee.appointment.index') }}">
-                <i class="fa-fw fas fa-key c-sidebar-nav-icon">
-                </i>
-                {{ trans('global.appointment') }}
-            </a>
-        </li>
-
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link {{ request()->is('employee/todayappointment') || request()->is('employee/todayappointment/*') ? 'c-active' : '' }}" href="{{ url('employee/todayappointment') }}">
-                <i class="fa-fw fas fa-key c-sidebar-nav-icon">
-                </i>
-                {{ trans('global.todayappointment') }}
             </a>
         </li>
 

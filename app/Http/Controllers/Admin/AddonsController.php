@@ -54,6 +54,7 @@ class AddonsController extends Controller
             $data['icon'] = $date . '.' . $ext[1];
         }
         $addon = Addons::create($data);
+        toast(trans('flash.global.success_title'),'success');
         return redirect()->route('admin.addon.index');
     }
     public function edit($id)
@@ -75,12 +76,14 @@ class AddonsController extends Controller
         }
         $addon->update($data);
 
+        toast(trans('flash.global.update_title'),'success');
         return redirect()->route('admin.addon.index');
     }
     public function destroy($id)
     {
         $addon=Addons::find($id);
         $addon->delete();
+        alert(trans('flash.deleted'),'','success');
         return back();
     }
 }

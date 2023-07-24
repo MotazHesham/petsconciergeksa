@@ -26,7 +26,9 @@
                             <th>
                                 {{ trans('cruds.employee.fields.email') }}
                             </th>
-
+                            <th>
+                                {{ trans('cruds.employee.fields.approved') }}
+                            </th>
                             <th>
                                 &nbsp;
                             </th>
@@ -45,13 +47,15 @@
                                     {{ $employee->email ?? '' }}
                                 </td>
                                 <td>
-                                    {{--                                <a class="btn btn-xs btn-primary" href="{{ route('admin.employee.show', $employee->id) }}"> --}}
-                                    {{--                                    {{ trans('global.view') }} --}}
-                                    {{--                                </a> --}}
-
-                                    {{--                                <a class="btn btn-xs btn-info" href="{{ route('admin.employee.edit', $employee->id) }}"> --}}
-                                    {{--                                    {{ trans('global.edit') }} --}}
-                                    {{--                                </a> --}}
+                                    <label class="c-switch c-switch-pill c-switch-success">
+                                        <input onchange="update_statuses(this,'approved')" value="{{$employee->id}}" type="checkbox" class="c-switch-input" {{($employee->approved ? "checked" : null)}}>
+                                        <span class="c-switch-slider"></span>
+                                    </label>
+                                </td>
+                                <td> 
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.employee.edit', $employee->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
 
                                     <form action="{{ route('admin.employee.destroy', $employee->id) }}" method="POST"
                                         onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
@@ -75,6 +79,21 @@
 @section('scripts')
     @parent
     <script>
+        function update_statuses(el,type){
+            if(el.checked){
+                var status = 1;
+            }
+            else{
+                var status = 0;
+            }
+            $.post('{{ route('admin.employee.update_statuses') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status, type:type}, function(data){
+                if(data == 1){
+                    showAlert('success', 'Success', '');
+                }else{
+                    showAlert('danger', 'Something went wrong', '');
+                }
+            });
+        }
         $(function() {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons) 
             $.extend(true, $.fn.dataTable.defaults, {

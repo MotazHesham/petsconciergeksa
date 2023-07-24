@@ -1,0 +1,208 @@
+@extends('layouts.admin')
+
+@section('content')
+    <div class="card">
+        <div class="card-body">
+
+
+
+            <form action="{{ route('admin.appointment.store') }}" id="ft-form" method="POST" accept-charset="UTF-8">
+
+                @csrf
+
+                <div class="form-group">
+                    <label class="required">Package</label>
+                    <select name="package_id" id="package_id" class="form-control" onchange="change_price(null)" required> 
+                        @foreach ($packages as $package)
+                            <option value="{{ $package->id }}">{{ $package->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="required">Client</label>
+                        <select name="client_id" id="client_id" required class="form-control input-field" onchange="get_pets()" required>
+                            <option value="">Choose Client</option>
+                            @foreach ($clients as $client)
+                                <option value="{{ $client->id }}">{{ $client->name }} ({{ $client->email }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="required">Pet</label>
+
+                        <select name="pet_id" id="pet_id" required class="form-control input-field" required>
+                            <option value="">Choose pet</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Any additional information we should know about your pet?
+                    </label>
+                    <textarea name="additional_info" class="form-control" id="" cols="30" rows="4"
+                        placeholder="Ex: pregnant, aggressive, so On ...."></textarea>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="required">Size</label>
+
+                        <select name="size" id="size" onchange="change_price(null)" required
+                            class="form-control input-field"> 
+
+                            <option value="0">Small</option>
+
+                            <option value="1">Medium</option>
+
+                            <option value="2">Large</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Price</label>
+
+                        <input type="number" step="0.1" readonly id="price" name="price"
+                            class="form-control input-field" required>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="required">
+                            Date
+                        </label> 
+                        <input type="date" onchange="selectTime()" id="date" name="date"
+                            class="form-control input-field" required>
+
+                    </div>
+                    <div class="form-group col-md-6" style="display: none" id="avTime" >
+                        <label class="required">
+                            Time
+                        </label>
+
+                        <select required name="time" id="time" class="form-control input-field"> 
+
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">  
+                    <label>Addon</label> 
+                    @foreach ($addons as $addon)
+                        <div class="row"> 
+                            <div class="col-md-4"> 
+                                <input name="addon_id[]" onchange="change_price(this)" id="addOn{{ $addon->id }}"
+                                    value="{{ $addon->id }}" type="checkbox" class="checkbox">
+
+                                <label for="addOn{{ $addon->id }}"
+                                    aria-label="my SQL">{{ $addon->name }}</label> 
+                            </div>
+
+                            <div class="col-md-8">
+
+                                {{ $addon->price }}
+
+                            </div>
+
+                        </div>
+                    @endforeach   
+                </div>  
+                <button type="submit" class="btn btn-primary">Send</button>  
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function get_pets(){
+            let client_id = $('#client_id').val();
+            $.ajax({ 
+                url: '{{ url('admin/getPets') }}', 
+                type: 'post', 
+                data: { 
+                    client_id: client_id, 
+                    _token: '{{ csrf_token() }}'
+                }, 
+                success: function(data) {
+                    $('#pet_id').html(null);
+
+                    for (var i = 0; i < data.length; i++) {
+                        $('#pet_id').append($('<option>', {
+                            value: data[i].id,
+                            text: data[i].name
+                        }));
+                    }
+                } 
+            });
+        }
+        function selectTime() {
+
+            // disable sunday
+            const picker = document.getElementById('date');
+            picker.addEventListener('input', function(e) {
+                var day = new Date(this.value).getUTCDay();
+                if ([7, 0].includes(day)) {
+                    e.preventDefault();
+                    this.value = '';
+                    alert('Sunday Is Off');
+                }
+            });
+
+            var date = $('#date').val();
+
+            $.ajax({ 
+                url: '{{ url('client/getTime') }}/' + date, 
+                type: 'get', 
+                success: function(data) { 
+                    $('#avTime').show() 
+                    var $time = $('#time'); 
+                    $time.empty() 
+                    if (data.length <= 0) {  
+                        $time.append('<option id="" value="">Fully Booked Choose another date</option>'); 
+                        alert('The Date ' + date + ' is Fully Booked Try another Date')
+                    } else { 
+                        for (var i = 0; i < data.length; i++) { 
+                            $time.append('<option id=' + data[i] + ' value=' + data[i] + '>' + data[i] +
+                                '</option>'); 
+                        } 
+                    } 
+                } 
+            }); 
+        }
+    </script>
+
+    <script> 
+        function change_price(elem) {
+
+            let size = $('#size').val();
+            let package_id = $('#package_id').val();
+            let addons = $('input[type="checkbox"].checkbox:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+            
+            if (size) {
+                $.ajax({ 
+                    url: '{{ url('client/getPackagePrice') }}', 
+                    type: 'post', 
+                    data: {
+                        size: size,
+                        package_id: package_id,
+                        addons: addons,
+                        _token: '{{ csrf_token() }}'
+                    }, 
+                    success: function(data) {
+                        $('#price').val(data);
+                    } 
+                });
+            } else {
+                alert('you must choose size first');
+                $(elem).prop('checked', false)
+            }
+
+        }
+    </script>
+@endsection

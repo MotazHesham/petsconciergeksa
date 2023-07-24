@@ -17,6 +17,15 @@
         </li>
 
         <li class="c-sidebar-nav-item">
+            <a href="{{ route("admin.systemCalendar") }}" class="c-sidebar-nav-link {{ request()->is("admin/system-calendar") || request()->is("admin/system-calendar/*") ? "c-active" : "" }}">
+                <i class="c-sidebar-nav-icon fa-fw fas fa-calendar">
+
+                </i>
+                {{ trans('global.systemCalendar') }}
+            </a>
+        </li>
+        
+        <li class="c-sidebar-nav-item">
             <a href="{{ route("admin.employee.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/employee") || request()->is("admin/employee/*") ? "c-active" : "" }}">
                 <i class="fa-fw fas fa-user-cog c-sidebar-nav-icon">
 

@@ -21,6 +21,16 @@ class Appointment extends Model
         'deleted_at',
     ];
 
+    
+
+    public const SELECT_TIME = [
+        '10:00' => '10:00:00',
+        '11:30'=> '11:30:00',
+        '1:00'=> '13:00:00',
+        '4:00'=> '16:00:00',
+        '5:30'=> '17:30:00',
+        '7:00' => '19:00:00',
+    ];
     protected $fillable = [
         'date',
         'time',

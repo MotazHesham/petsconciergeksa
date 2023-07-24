@@ -20,10 +20,12 @@
         "laravel/ui": "^3.3",
         "laraveldaily/laravel-charts": "^0.2.3",
         "niklasravnsborg/laravel-pdf": "^4.1",
+        "realrashid/sweet-alert": "^7.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "yajra/laravel-datatables-oracle": "^9.18"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",

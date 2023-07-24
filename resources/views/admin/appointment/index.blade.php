@@ -1,5 +1,14 @@
 @extends('layouts.admin')
 @section('content')
+
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.appointment.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.appointment.title_singular') }}
+            </a>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header">
             {{ trans('cruds.appointment.title_singular') }} {{ trans('global.list') }}
@@ -19,10 +28,7 @@
                             </th>
                             <th>
                                 {{ trans('cruds.clients.fields.phone') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.appointment.fields.address') }}
-                            </th>
+                            </th> 
                             <th>
                                 {{ trans('cruds.appointment.fields.date') }}
                             </th>
@@ -59,16 +65,14 @@
                                 </td>
                                 <td>
                                     {{ $appointment->client->phone ?? '' }}
-                                </td>
-                                <td>
+                                    <br>
                                     @php
                                         $lat = $appointment->client->lat ?? '';
                                         $lng = $appointment->client->lng ?? '';
                                     @endphp
                                     <a href="https://www.google.com/maps/?q={{ $lat }},{{ $lng }}"
                                         target="_blank">{{ $appointment->client->address ?? '' }}</a>
-
-                                </td>
+                                </td> 
                                 <td>
                                     {{ $appointment->date . ' ' . $appointment->time }}
                                 </td>
@@ -93,8 +97,7 @@
                                 <td>
                                     {{ $appointment->package->name ?? '' }}
                                     <br> 
-                                    @if($appointment->addon_id != null)
-                                        <hr>
+                                    @if($appointment->addon_id != null) 
                                         @foreach(json_decode($appointment->addon_id) as $id)
                                             @php
                                                 $addon = \App\Models\Addons::find($id);
@@ -113,20 +116,20 @@
                                 </td>
 
                                 <td>
-                                    <a class="btn btn-xs btn-primary"
+                                    {{-- <a class="btn btn-xs btn-primary"
                                         href="{{ route('admin.appointment.show', $appointment->id) }}">
                                         {{ trans('global.show') }}
-                                    </a>
+                                    </a> --}}
                                     @if($appointment->status != 2) 
+                                        <a class="btn btn-xs btn-success"
+                                            href="{{ route('admin.appointment.edit', $appointment->id) }}">
+                                            {{ trans('global.assign') }}
+                                        </a>
                                         <a class="btn btn-xs btn-danger"
                                             href="{{ route('admin.appointment.destroy', $appointment->id) }}" onclick="return confirm('{{ trans('global.areYouSure') }}');">
                                             {{ trans('global.delete') }}
                                         </a>
                                     @endif
-                                    <a class="btn btn-xs btn-info"
-                                        href="{{ route('admin.appointment.edit', $appointment->id) }}">
-                                        {{ trans('global.assign') }}
-                                    </a>
                                 </td>
 
 

@@ -45,6 +45,7 @@ class ServiceController extends Controller
         }
 
         $service = Service::create($data);
+        toast(trans('flash.global.success_title'),'success');
         return redirect()->route('admin.service.index');
     }
 
@@ -73,6 +74,7 @@ class ServiceController extends Controller
 
         $service->update($data);
 
+        toast(trans('flash.global.update_title'),'success');
         return redirect()->route('admin.service.index');
     }
 
@@ -81,6 +83,7 @@ class ServiceController extends Controller
     {
         $service=Service::find($id);
         $service->delete();
+        alert(trans('flash.deleted'),'','success');
         return back();
     }
 }

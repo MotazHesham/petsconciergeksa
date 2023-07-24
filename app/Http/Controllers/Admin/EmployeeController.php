@@ -7,10 +7,10 @@ use App\Http\Requests\MassDestroyEmployeeRequest;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Mail\Confirmation;
-use App\Models\Employee;
-use App\Models\Role;
+use App\Models\Employee; 
 use Mail;
 use Gate;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
@@ -18,9 +18,17 @@ use Illuminate\Support\Str;
 
 class EmployeeController extends Controller
 {
-    public function index()
-    {
+    public function update_statuses(Request $request){ 
+        $type = $request->type;
+        $employee = Employee::findOrFail($request->id);
+        $employee->$type = $request->status; 
+        $employee->save();
+        return 1;
+    }
 
+
+    public function index()
+    {  
         $employees = Employee::orderBy('id')->get();
         return view('admin.employee.index', compact('employees'));
     }
@@ -31,7 +39,7 @@ class EmployeeController extends Controller
         return view('admin.employee.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $pin = mt_rand(1000000, 9999999)
@@ -45,19 +53,20 @@ class EmployeeController extends Controller
         $objDemo->title ='Welcome '.$employee->name;
         $objDemo->message='your password is:'.$string;
         Mail::to($request->email)->queue(new Confirmation($objDemo));
+        toast(trans('flash.global.success_title'),'success');
         return redirect()->route('admin.employee.index');
     }
 
     public function edit(Employee $employee)
-    {
-
+    { 
         return view('admin.employee.edit', compact( 'employee'));
     }
 
-    public function update(Request $request, Employee $employee)
+    public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
         $employee->update($request->all());
 
+        toast(trans('flash.global.update_title'),'success');
         return redirect()->route('admin.employee.index');
     }
 
@@ -73,6 +82,7 @@ class EmployeeController extends Controller
 
         $employee->delete();
 
+        alert(trans('flash.deleted'),'','success');
         return back();
     }
 

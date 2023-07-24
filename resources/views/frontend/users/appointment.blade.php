@@ -205,13 +205,7 @@
                             </div>
 
                         </fieldset>
-
-                        <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary g-recaptcha" 
-                                data-sitekey="reCAPTCHA_site_key" 
-                                data-callback='onSubmit' 
-                                data-action='submit'>Send
-
-                        </button>
+                        <button type="submit" class="btn btn-primary">Send</button>  
                         <br>
                         <small>Additional 50 SAR to obhur</small>
                         <br>
@@ -257,39 +251,23 @@
 
             var date = $('#date').val();
 
-            $.ajax({
-
-                url: '{{ url('client/getTime') }}/' + date,
-
-                type: 'get',
-
-                success: function(data) {
-
-                    if (data.length <= 0) {
-
-                        $('#time').empty();
-
-                        $('#avTime').hide();
-
-                    } else {
-
-                        $('#avTime').show()
-
-                        var $time = $('#time');
-
-                        $time.empty()
-
-                        for (var i = 0; i < data.length; i++) {
-
+            $.ajax({ 
+                url: '{{ url('client/getTime') }}/' + date, 
+                type: 'get', 
+                success: function(data) { 
+                    $('#avTime').show() 
+                    var $time = $('#time'); 
+                    $time.empty() 
+                    if (data.length <= 0) {  
+                        $time.append('<option id="" value="">Fully Booked Choose another date</option>'); 
+                        alert('The Date ' + date + ' is Fully Booked Try another Date')
+                    } else { 
+                        for (var i = 0; i < data.length; i++) { 
                             $time.append('<option id=' + data[i] + ' value=' + data[i] + '>' + data[i] +
-                                '</option>');
-
-                        }
-
-                    }
-
-                }
-
+                                '</option>'); 
+                        } 
+                    } 
+                }  
             });
 
         }

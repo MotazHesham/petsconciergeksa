@@ -37,6 +37,7 @@ class PackagesController extends Controller
         $data = $request->all();
         $data['services_id'] = json_encode($request->services_id);
         Packages::create($data);
+        toast(trans('flash.global.success_title'),'success');
         return redirect()->route('admin.package.index');
     }
 
@@ -58,6 +59,7 @@ class PackagesController extends Controller
 
         $package->update($data);
 
+        toast(trans('flash.global.update_title'),'success');
         return redirect()->route('admin.package.index');
     }
 

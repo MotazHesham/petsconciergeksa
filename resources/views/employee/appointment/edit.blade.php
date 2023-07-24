@@ -9,16 +9,8 @@
     <div class="card-body">
         <form method="POST" action="{{ route("employee.appointment.done",$appointment->id) }}" enctype="multipart/form-data">
             @csrf
-            <div class="row">
-
-
-                <div class="form-group col-md-6">
-                    <label class="required" for="title">{{ trans('cruds.appointment.fields.employees') }}</label>
-                    <select name="status" id="status" class="form-control">
-                        <option value="1" @if($appointment->status == 1) selected @endif >{{ trans('cruds.appointment.fields.assigned') }}</option>
-                        <option value="2" @if($appointment->status == 2) selected @endif >{{ trans('cruds.appointment.fields.done') }}</option>
-                    </select>
-                </div>
+            <div class="row"> 
+                <input type="hidden" name="status" value="2">
 
                 <div class="form-group col-md-12">
                     <label class="required" for="title">{{ trans('cruds.appointment.fields.comment') }}</label>

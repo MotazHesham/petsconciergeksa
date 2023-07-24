@@ -14,120 +14,58 @@
                 </a>
             </div>
             <table class="table table-bordered table-striped">
+                <thead>
+                    <tr> 
+                        <th>
+                            id
+                        </th>
+                        <th>
+                            Pet Name
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            age
+                        </th>
+                        <th>
+                            gender
+                        </th>
+                        <th>
+                            instagram Account
+                        </th>
+                        <th>
+                            image
+                        </th>
+                    </tr>
+                </thead> 
+                
                 <tbody>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.clients.fields.id') }}
-                        </th>
-                        <td>
-                            {{ $clients->id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.name') }}
-                        </th>
-                        <td>
-                            {{ $clients->name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.arabic name') }}
-                        </th>
-                        <td>
-                            {{ $clients->name_ar }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.email') }}
-                        </th>
-                        <td>
-                            {{ $clients->email }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.phone') }}
-                        </th>
-                        <td>
-                            {{ $clients->phone }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.address') }}
-                        </th>
-                        <td>
-                            {{ $clients->address }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.arabic address') }}
-                        </th>
-                        <td>
-                            {{ $clients->address_ar }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.building number') }}
-                        </th>
-                        <td>
-                            {{ $clients->building_num }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.street name') }}
-                        </th>
-                        <td>
-                            {{ $clients->street_name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.street') }}
-                        </th>
-                        <td>
-                            {{ $clients->street }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.District') }}
-                        </th>
-                        <td>
-                            {{ $clients->disincit }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.Additional address number') }}
-                        </th>
-                        <td>
-                            {{ $clients->addidtional_address }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.Another ID') }}
-                        </th>
-                        <td>
-                            {{ $clients->another_id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.user.fields.Country Zip Code') }}
-                        </th>
-                        <td>
-                            {{ $clients->zipCode }}
-                        </td>
-                    </tr>
-
+                    @foreach($clients->pets as $pet)
+                        <tr> 
+                            <td>
+                                {{ $pet->id }}
+                            </td>
+                            <td>
+                                {{ $pet->name }}
+                            </td>
+                            <td>
+                                {{ $pet->category->name }}
+                            </td>
+                            <td>
+                                {{ $pet->age}}
+                            </td>
+                            <td>
+                                {{ $pet->gender}}
+                            </td>
+                            <td>
+                                {{ $pet->instagram_account}}
+                            </td>
+                            <td>
+                                <img src="{{URL::asset('storage/app/public/attachment/' . $pet->image)}}" style="width: 80px; height: 80px;">
+                            </td>
+                        </tr> 
+                    @endforeach
                 </tbody>
             </table>
             <div class="form-group">

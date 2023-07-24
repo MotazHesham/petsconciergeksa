@@ -55,7 +55,7 @@ class HomeController
 
         $chart2= new LaravelChart($settings2);
 
-        $appointments  = Appointment::latest()->take(5)->get(); 
+        $appointments  = Appointment::with('client','package')->latest()->take(5)->get(); 
         $clients  = Clients::latest()->take(5)->get(); 
 
         return view('home', compact('clients_count', 'appointments_count', 'todayAppointments','comments','chart1','chart2','appointments','clients'));

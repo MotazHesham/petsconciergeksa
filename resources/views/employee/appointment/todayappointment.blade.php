@@ -95,8 +95,8 @@
                             </td>
 
                             <td>
-                                <a class="btn btn-xs btn-info" href="{{ route('employee.appointment.edit', $appointment->id) }}">
-                                    {{ trans('global.edit') }}
+                                <a class="btn btn-xs btn-success" href="{{ route('employee.appointment.edit', $appointment->id) }}">
+                                    Done
                                 </a>
                             </td>
 

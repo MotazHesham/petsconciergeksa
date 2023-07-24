@@ -47,18 +47,25 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Employees
     Route::delete('employee/destroy', 'EmployeeController@massDestroy')->name('employee.massDestroy');
+    Route::post('employee/update_statuses', 'EmployeeController@update_statuses')->name('employee.update_statuses');
     Route::resource('employee', 'EmployeeController');
 
     // clients
     Route::resource('clients', 'ClientsController');
+    Route::delete('contacts/destroy/{id}', 'ClientsController@destroy_contact')->name('contacts.destroy');
     Route::get('contacts', 'ClientsController@contacts')->name('contacts.index');
 
+    Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
+    
     //Appointment
     Route::get('appointments', 'ClientsController@appointment')->name('appointment.index');
+    Route::get('appointments/create', 'ClientsController@addAppointment')->name('appointment.create');
+    Route::post('appointments/store', 'ClientsController@storeAppointment')->name('appointment.store');
     Route::get('appointments/edit{id}', 'ClientsController@editAppointment')->name('appointment.edit');
     Route::post('assignAppointment/{id}', 'ClientsController@assignAppointment')->name('appointment.assign');
     Route::get('appointments/destroy/{id}', 'ClientsController@destroy_appointment')->name('appointment.destroy');
     Route::get('showAppointment/{id}', 'ClientsController@showAppointment')->name('appointment.show');
+    Route::post('getPets', 'ClientsController@getPets');
 
     Route::resource('supplier', 'SupplierController');
     Route::resource('setting', 'SettingController');
