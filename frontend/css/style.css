@@ -414,7 +414,6 @@ ul.slider-pagi {
 .slide__text h1 {
     color: #fff;
     text-transform: uppercase;
-font-size:59px;
 }
 .slide__text-heading {
     margin-bottom: 1.5rem;
@@ -708,7 +707,7 @@ font-size:59px;
     bottom: 0;
 }
 /* =========================== Pricing Page ============================ */
-
+.bo-r-20 {border-radius: 40px;} 
 .price-table {
     font-size: 16px;
 }
@@ -1048,9 +1047,8 @@ font-size:59px;
 /* footer */
 
 footer {
-    background-color: #ff9ac9;
+    background-color: #363636;
     padding: 45px 0px;
-    text-align: center;
 }
 footer p,
 footer h6,
@@ -1784,7 +1782,7 @@ div.bg-darkcolor{
     color: #fff;
     transition: all .3s ease-in-out;
     margin: 3px;
-    padding: 13px;
+    padding: 10px;
     width: 50px;
     border: 3px solid;
     border-radius: 50%;
@@ -1926,7 +1924,7 @@ blockquote:before {
     margin-top: 50px;
 }
 /* Jumbotron */
-
+.inside-banner { margin-bottom: 50px;}
 .jumbotron {
     background-size: cover!important;
     height: 200px;
@@ -2137,7 +2135,7 @@ button.list-group-item:hover {
     }
     nav .navbar-brand img,
     nav.navbar.shrink .navbar-brand img {
-        max-width: 120px;
+        max-width: 80px;
         bottom: 0px;
     }
     nav.navbar.shrink a,
@@ -3189,78 +3187,5 @@ input[type="text"] {
   color: #404040;
 }
 
-.pink-bg2 {
-    background-color: #837d80 !important;
-    margin-top: 50px;
-}
 
-.res-margin {
-    width: 100%;
-    margin: 0 auto;
-}
-.list-unstyled i {
-color:#000;}
-
-
-section.pages2 {
-    background: #efefef;
-}
-
-.inline label {
-    display: initial;
-    margin: 5px 6px;
-}
-
-input[type="text"] {
-    margin: 0px 0px 0px 0px !important;
-}
-
-.res-margin2 {
-    display: inherit;
-}
-
-.jumbotron {
-    margin-bottom: 6em;
-}
-
-section#contact {
-    padding-bottom: 100px !important;
-}
-
-.addonnn {
-    margin: 24px 20px;
-}
-
-
-.addonnn .row.mb-10 {
-    border-bottom: 1px solid #dddddd8a !important;
-    padding-bottom: 10px;
-}
-
-.modal-content form textarea {
-    width: 100%;
-    border: 1px solid #ddd;
-}
-
-h5#exampleModalLabel {
-    color: #000;
-    font-size: 17px;
-    margin: 20PX 0;
-}
-
-.mpet a {
-    color: #fff;
-}
-
-.res-margin .login_form {
-    background: #fff;
-    border: 0;
-    box-shadow: 0px 0px 20px -9px #0000003d;
-}
-
-.res-margin .login_form .col-md-6 {
-    min-height: 90px;
-}
-
-
-.mb-10 { margin-bottom: 10px; }i.flaticon-long-haired-dog-head {    display: none !important;}.price-table header {    position: relative;    padding: 20px;    text-align: center;    border-top: 9px solid #ff9ac9;    padding-top: 40px;    overflow: hidden;    border-radius: 14px;}
+.mb-10 { margin-bottom: 10px; }
