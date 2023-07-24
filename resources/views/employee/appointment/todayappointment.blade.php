@@ -36,6 +36,9 @@
                         <th>
                             {{ trans('cruds.appointment.fields.package') }}
                         </th>
+                        <th>
+                            {{ trans('cruds.appointment.fields.price') }}
+                        </th>
 
                         <th>
 
@@ -64,13 +67,7 @@
                             </td>
                             <td>
                                 {{ $appointment->date .' '.$appointment->time }}
-                            </td>
-                            <td>
-                                {{ $appointment->pet->name ?? '' }} 
-                                <br>
-                                <span class="badge badge-danger"> AGE : {{ $appointment->pet->age ?? '' }}</span>
-                                <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
-                            </td>
+                            </td> 
                             <td>
                                 {{ $appointment->pet->name ?? '' }} 
                                 <br>
@@ -78,12 +75,12 @@
                                 <span class="badge badge-success"> Type : {{ $appointment->pet->category->name ?? '' }}</span>
                                 <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
                                 <br>
-                                @if($appointment->is_it_loyalty_appoint)
-                                <br>
-                                    <span class="badge badge-danger">it's loyalty Card</span>
-                                @endif
-                                @if($appointment->addon_id != null)
-                                    <hr>
+                                @if($appointment->additional_info)({{ $appointment->additional_info }}) @endif
+                            </td>
+                            <td>
+                                {{ $appointment->package->name ?? '' }}
+                                <br> 
+                                @if($appointment->addon_id != null) 
                                     @foreach(json_decode($appointment->addon_id) as $id)
                                         @php
                                             $addon = \App\Models\Addons::find($id);
@@ -91,6 +88,13 @@
                                         @endphp
                                         <small class="badge badge-dark">{{ $addon_name }}</small> <br>
                                     @endforeach
+                                @endif
+                            </td>
+                            <td>
+                                {{ $appointment->price }}
+                                @if($appointment->is_it_loyalty_appoint)
+                                <br>
+                                    <span class="badge badge-danger">it's loyalty Card</span>
                                 @endif
                             </td>
 

@@ -33,6 +33,12 @@
                                 {{ trans('cruds.appointment.fields.petname') }}
                             </th>
                             <th>
+                                {{ trans('cruds.appointment.fields.package') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.appointment.fields.price') }}
+                            </th>
+                            <th>
                                 {{ trans('cruds.appointment.fields.status') }}
                             </th>
 
@@ -69,6 +75,26 @@
                                     <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
                                     <br>
                                     @if($appointment->additional_info)({{ $appointment->additional_info }}) @endif
+                                </td>
+                                <td>
+                                    {{ $appointment->package->name ?? '' }}
+                                    <br> 
+                                    @if($appointment->addon_id != null) 
+                                        @foreach(json_decode($appointment->addon_id) as $id)
+                                            @php
+                                                $addon = \App\Models\Addons::find($id);
+                                                $addon_name = $addon ? $addon->name : '';
+                                            @endphp
+                                            <small class="badge badge-dark">{{ $addon_name }}</small> <br>
+                                        @endforeach
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $appointment->price }}
+                                    @if($appointment->is_it_loyalty_appoint)
+                                    <br>
+                                        <span class="badge badge-danger">it's loyalty Card</span>
+                                    @endif
                                 </td>
 
                                 <td>
