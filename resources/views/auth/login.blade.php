@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <!--<title> Login and Registration Form in HTML & CSS | CodingLab </title>-->
-    <link rel="stylesheet" href="{{ asset('login/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/login/style.css') }}" />
     <!-- Fontawesome CDN Link -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -23,7 +23,7 @@
         <input type="checkbox" id="flip" />
         <div class="cover">
             <div class="front">
-                <img src="{{ asset('login/images/frontImg.jpg') }}" alt="" />
+                <img src="{{ asset('public/login/images/frontImg.jpg') }}" alt="" />
                 <div class="text">
                     <span class="text-1">SignIn <br /> </span>
                     <span class="text-2">Let's get connected</span>
