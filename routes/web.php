@@ -133,6 +133,8 @@ Route::get('/verify/{id}','frontend\FrontendController@verify');
 Route::get('/resend/{id}','frontend\FrontendController@resend');
 Route::post('/storeCode/{id}','frontend\FrontendController@verify');
 
+Route::get('/client/getTime/{date}','frontend\FrontendController@getTime');
+Route::post('/client/getPackagePrice','frontend\FrontendController@getPackagePrice');
 
 Route::post('/forget/my/password','frontend\FrontendController@forgetMyPassword');
 Route::post('/store/new/password/{id}','frontend\FrontendController@storeNewPassword');
@@ -159,6 +161,7 @@ Route::post('/storeLogin','frontend\FrontendController@login');
 Route::get('/client/register','frontend\FrontendController@register');
 Route::post('/storeClientRegister','frontend\FrontendController@register');
 
+
 //User
 Route::group(['middleware' => 'client', 'prefix' => 'client'], function () {
     Route::get('/add/pet','frontend\FrontendController@addpet');
@@ -178,8 +181,6 @@ Route::group(['middleware' => 'client', 'prefix' => 'client'], function () {
     Route::get('/my/pets','frontend\FrontendController@mypets');
 
     Route::get('/profile','frontend\FrontendController@editUser');
-    Route::get('/getTime/{date}','frontend\FrontendController@getTime');
-    Route::post('/getPackagePrice','frontend\FrontendController@getPackagePrice');
     Route::post('/updateuser','frontend\FrontendController@updateuser');
     Route::post('/storeComment','frontend\FrontendController@storeComment');
 
