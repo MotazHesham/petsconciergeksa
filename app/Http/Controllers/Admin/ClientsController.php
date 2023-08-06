@@ -69,6 +69,16 @@ class ClientsController extends Controller
     }
 
 
+    public function active($id)
+    {
+        $clients=Clients::find($id);
+        $clients->status = 1;
+        $clients->save();
+        alert(trans('flash.success'),'','success');
+        return back();
+    }
+
+
     public function destroy($id)
     {
         $clients=Clients::find($id);
@@ -161,11 +171,72 @@ class ClientsController extends Controller
         return redirect()->route('admin.appointment.index');
 
     }
-    public function editAppointment($id)
+    public function assign($id)
     {
         $appointment = Appointment::find($id);
         $employees = Employee::all();
-        return view('admin.appointment.edit', compact('employees', 'appointment'));
+        return view('admin.appointment.assign', compact('employees', 'appointment'));
+    }
+    public function editAppointment($id)
+    {
+        $appointment = Appointment::find($id); 
+        $addons = Addons::all();
+        $packages = Packages::all();
+        $clients = Clients::all();
+        $pets = Pet::where('client_id',$appointment->user_id)->get();
+        return view('admin.appointment.edit', compact('addons', 'packages','clients','appointment','pets'));
+    }
+
+    public function updateAppointment(Request $request, $id)
+    {
+        // calculate total price
+        $package = Packages::find($request->package_id);
+        if ($request->size == 0)
+            $package_price = $package->small_price;
+        elseif ($request->size == 1)
+            $package_price = $package->mid_price;
+        else
+            $package_price = $package->hi_price;
+
+        $total_addons = 0 ;
+        if($request->has('addon_id') && $request->addon_id != null){
+            foreach($request->addon_id as $raw){
+                $addon = Addons::find($raw);
+                if($addon){
+                    $total_addons += $addon->price;
+                    $addons[] = [
+                        'name' => $addon->name,
+                        'price' => $addon->price
+                    ];
+                }
+            }
+        }else{
+            $addons = null;
+        }
+        // -------------- 
+
+        $appointment = Appointment::findOrFail($id);
+        $appointment->user_id = $request->client_id;
+        $appointment->date = $request->date;
+        $appointment->time = $request->time;
+        $appointment->additional_info = $request->additional_info;
+        $appointment->pet_id = $request->pet_id;
+        $appointment->package_id = $request->package_id;
+        if ($request->addon_id)
+            $appointment->addon_id = json_encode($request->addon_id); 
+        if ($request->size == 0)
+            $appointment->size = 'Small';
+        elseif ($request->size == 1)
+            $appointment->size = 'Medium';
+        else
+            $appointment->size = 'Large';
+        $appointment->price = $package_price + $total_addons;
+        $appointment->save(); 
+
+        
+        toast(trans('flash.global.update_title'),'success');
+        return redirect()->route('admin.appointment.index');
+
     }
 
     public function assignAppointment(Request $request, $id)

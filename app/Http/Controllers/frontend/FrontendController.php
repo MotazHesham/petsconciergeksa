@@ -98,6 +98,13 @@ class FrontendController extends Controller
         $aboutus = AboutUs::first();
         if ($request->post())
         {
+            $request->validate([
+                'name' => 'required|max: 255',
+                'email' => 'required|email|max: 255',
+                'subject' => 'required',
+                'message' => 'required',
+                'g-recaptcha-response' => 'required|recaptcha'
+            ]);
             Contact::create($request->all());
             $objDemo = new \stdClass();
             $objDemo->title ='New message from Contact-Us ';
@@ -444,10 +451,12 @@ class FrontendController extends Controller
         }
     }
 
-    public function getTime($date)
+    public function getTime(Request $request ,$date)
     {
         $allTimes = ['10:00','11:30','1:00','4:00','5:30','7:00'];
-        $appintments =Appointment::where('date',$date)->pluck('time')->toArray(); 
+        $appintments = $request->has('appointment_id') 
+                        ? Appointment::where('date',$date)->where('id','!=',$request->appointment_id)->pluck('time')->toArray() 
+                        : Appointment::where('date',$date)->pluck('time')->toArray(); 
         if (!$appintments)
             return $allTimes;
         $diffTimes  =array_diff($allTimes,$appintments);

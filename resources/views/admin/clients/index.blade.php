@@ -62,7 +62,12 @@
                                 <td>{{ $client->appointments_count > 0 ? $client->appointments_count : '' }}</td>
                                 <td >
                                     @if ($client->status == 0)
-                                        No
+                                        No 
+                                        <br>
+                                        <a class="btn btn-xs btn-success"
+                                            href="{{ route('admin.clients.active', $client->id) }}">
+                                            active
+                                        </a>
                                     @elseif($client->status == 1)
                                         Yes @if ($client->status != 0) <i class="fas fa-check-circle" style="color:rgb(44, 189, 104)"></i> @endif
                                     @endif

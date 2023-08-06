@@ -1,5 +1,9 @@
 @extends('frontend.master')
 
+@section('styles')
+<script src='https://www.google.com/recaptcha/api.js'></script>
+@endsection
+
 @section('content')
 
       <!-- /navbar ends -->
@@ -59,6 +63,15 @@
 
                   <div id="contact_form">
 
+                     @if ($errors->count() > 0)
+                           <div class="alert alert-danger">
+                              <ul class="list-unstyled">
+                                 @foreach ($errors->all() as $error)
+                                       <li>{{ $error }}</li>
+                                 @endforeach
+                              </ul>
+                           </div>
+                     @endif
                      <form method="post" action="{{url('storeContact')}}">
 
                         @csrf
@@ -82,7 +95,11 @@
                         <textarea name="message" id="message" class="textarea-field form-control" rows="3"  required=""></textarea>
 
                      </div>
-
+                     @if(config('services.recaptcha.key'))
+                        <div class="g-recaptcha"
+                           data-sitekey="{{config('services.recaptcha.key')}}">
+                        </div>
+                     @endif
                      <button type="submit" id="submit_btn" value="Submit" class="btn center-block">Send message</button>
 
                      </form>

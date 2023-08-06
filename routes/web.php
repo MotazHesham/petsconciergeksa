@@ -51,6 +51,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('employee', 'EmployeeController');
 
     // clients
+    Route::get('clients/active/{id}', 'ClientsController@active')->name('clients.active');
     Route::resource('clients', 'ClientsController');
     Route::delete('contacts/destroy/{id}', 'ClientsController@destroy_contact')->name('contacts.destroy');
     Route::get('contacts', 'ClientsController@contacts')->name('contacts.index');
@@ -61,6 +62,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('appointments', 'ClientsController@appointment')->name('appointment.index');
     Route::get('appointments/create', 'ClientsController@addAppointment')->name('appointment.create');
     Route::post('appointments/store', 'ClientsController@storeAppointment')->name('appointment.store');
+    Route::post('appointments/update/{id}', 'ClientsController@updateAppointment')->name('appointment.update');
+    Route::get('appointments/assign{id}', 'ClientsController@assign')->name('appointment.edit_assign');
     Route::get('appointments/edit{id}', 'ClientsController@editAppointment')->name('appointment.edit');
     Route::post('assignAppointment/{id}', 'ClientsController@assignAppointment')->name('appointment.assign');
     Route::get('appointments/destroy/{id}', 'ClientsController@destroy_appointment')->name('appointment.destroy');
@@ -194,6 +197,7 @@ Route::get('/employee/login','employee\EmployeeDashboardController@login');
 Route::post('/storeEmployee','employee\EmployeeDashboardController@login');
 
 Route::group(['middleware' => 'employee', 'prefix' => 'employee'], function () {
+    Route::get('system-calendar', 'employee\SystemCalendarController@index')->name('employee.systemCalendar');
     Route::get('/signout','employee\EmployeeDashboardController@logout');
     Route::get('password',  'employee\EmployeeDashboardController@edit')->name('employee.password.edit');
     Route::post('password', 'employee\EmployeeDashboardController@update')->name('employee.password.update');

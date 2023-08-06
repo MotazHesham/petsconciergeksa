@@ -122,8 +122,12 @@
                                     </a> --}}
                                     @if($appointment->status != 2) 
                                         <a class="btn btn-xs btn-success"
-                                            href="{{ route('admin.appointment.edit', $appointment->id) }}">
+                                            href="{{ route('admin.appointment.edit_assign', $appointment->id) }}">
                                             {{ trans('global.assign') }}
+                                        </a>
+                                        <a class="btn btn-xs btn-info"
+                                            href="{{ route('admin.appointment.edit', $appointment->id) }}">
+                                            {{ trans('global.edit') }}
                                         </a>
                                         <a class="btn btn-xs btn-danger"
                                             href="{{ route('admin.appointment.destroy', $appointment->id) }}" onclick="return confirm('{{ trans('global.areYouSure') }}');">

@@ -83,6 +83,7 @@
             border-bottom: 1px solid #eeeeee;
         }
     </style>
+    @yield('styles')
 </head>
 
 <body id="page-top">

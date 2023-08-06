@@ -16,6 +16,14 @@
             </a>
         </li>
         <li class="c-sidebar-nav-item">
+            <a href="{{ route("employee.systemCalendar") }}" class="c-sidebar-nav-link {{ request()->is("employee/system-calendar") || request()->is("employee/system-calendar/*") ? "c-active" : "" }}">
+                <i class="c-sidebar-nav-icon fa-fw fas fa-calendar">
+
+                </i>
+                {{ trans('global.systemCalendar') }}
+            </a>
+        </li>
+        <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link {{ request()->is('employee/appointment') || request()->is('employee/appointment/*') ? 'c-active' : '' }}" href="{{ route('employee.appointment.index') }}">
                 <i class="fa-fw far fa-calendar-alt c-sidebar-nav-icon">
                 </i>
