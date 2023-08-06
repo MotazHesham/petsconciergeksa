@@ -77,6 +77,10 @@
                                         href="{{ route('admin.clients.show', $client->id) }}">
                                         Pets Info
                                     </a>
+                                    <a class="btn btn-xs btn-info"
+                                        href="{{ route('admin.clients.edit', $client->id) }}">
+                                        Edit Password
+                                    </a>
                                     <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST"
                                         onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
                                         style="display: inline-block;">

@@ -63,7 +63,8 @@ class ClientsController extends Controller
     public function update(Request $request, $id)
     {
         $clients=Clients::find($id);
-        $clients->update($request->all());
+        $clients->password = bcrypt($request->password);
+        $clients->save();
 
         return redirect()->route('admin.clients.index');
     }
