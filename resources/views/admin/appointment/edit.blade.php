@@ -99,7 +99,7 @@
                         <div class="row"> 
                             <div class="col-md-4"> 
                                 <input name="addon_id[]" onchange="change_price(this)" id="addOn{{ $addon->id }}"
-                                    value="{{ $addon->id }}" type="checkbox" class="checkbox"  @if(in_array($addon->id,json_decode($appointment->addon_id))) checked @endif> 
+                                    value="{{ $addon->id }}" type="checkbox" class="checkbox"  @if($appointment->addon_id && in_array($addon->id,json_decode($appointment->addon_id))) checked @endif> 
                                 <label for="addOn{{ $addon->id }}"
                                     aria-label="my SQL">{{ $addon->name }}</label> 
                             </div> 

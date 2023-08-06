@@ -222,8 +222,7 @@ class ClientsController extends Controller
         $appointment->additional_info = $request->additional_info;
         $appointment->pet_id = $request->pet_id;
         $appointment->package_id = $request->package_id;
-        if ($request->addon_id)
-            $appointment->addon_id = json_encode($request->addon_id); 
+        $appointment->addon_id = $request->addon_id ? json_encode($request->addon_id) : $addons; 
         if ($request->size == 0)
             $appointment->size = 'Small';
         elseif ($request->size == 1)
