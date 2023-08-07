@@ -101,9 +101,8 @@
     </section>
     <script src="/assets/js/jquery-3.2.1.min.js"></script>
     <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgT7WlFOpeuez5qKBL-yDXkuRpCUol0Rg&libraries=places&callback=initAutocomplete"
-            async defer>
-
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm1uzImt6N389j9eN0xNtwjN2aBtjvF4U&libraries=places&callback=initAutocomplete"
+            async defer> 
     </script>
 
     <script type="text/javascript">
