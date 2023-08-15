@@ -164,15 +164,18 @@
                     if (data.length <= 0) {  
                         $time.append('<option id="" value="">Fully Booked Choose another date</option>'); 
                         alert('The Date ' + date + ' is Fully Booked Try another Date')
-                    } else { 
-                        for (var i = 0; i < data.length; i++) { 
+                    } else {  
+                        var times = ['10:00','11:30','1:00','4:00','5:30','7:00'];
+                        for (var i = 0; i < times.length; i++) { 
                             var selected = '';
-                            if(data[i] == '{{ $appointment->time }}'){
+                            if(times[i] == '{{ $appointment->time }}'){
                                 selected = 'selected';
+                            } 
+                            if(data[times[i]] > 0){ 
+                                $time.append('<option id=' + times[i] + ' value=' + times[i] + ' '+selected+'>' + times[i] + ' ( avaliable appointments ' + data[times[i]] + ' )' +
+                                    '</option>'); 
                             }
-                            $time.append('<option id=' + data[i] + ' value=' + data[i] + ' '+selected+'>' + data[i] +
-                                '</option>'); 
-                        } 
+                        }  
                     } 
                 } 
             }); 

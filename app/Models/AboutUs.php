@@ -35,6 +35,7 @@ class AboutUs extends Model
         'image_packages',
         'image_contact',
         'count_to_loyalty', 
+        'appointment_count', 
         'package_loyalty', 
     ];
 

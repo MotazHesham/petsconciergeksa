@@ -453,16 +453,29 @@ class FrontendController extends Controller
 
     public function getTime(Request $request ,$date)
     {
-        $allTimes = ['10:00','11:30','1:00','4:00','5:30','7:00'];
+        $aboutus = AboutUs::first();
+        $allTimes = [];
+        for($i = 0 ; $i < $aboutus->appointment_count ; $i++){
+            $allTimes[] = '10:00';
+            $allTimes[] = '11:30';
+            $allTimes[] = '1:00';
+            $allTimes[] = '4:00';
+            $allTimes[] = '5:30';
+            $allTimes[] = '7:00';
+        }
         $appintments = $request->has('appointment_id') 
                         ? Appointment::where('date',$date)->where('id','!=',$request->appointment_id)->pluck('time')->toArray() 
                         : Appointment::where('date',$date)->pluck('time')->toArray(); 
-        if (!$appintments)
-            return $allTimes;
+        if ($appintments) { 
+            foreach($appintments as $appo){
+                unset($allTimes[array_search($appo, $allTimes)]);
+            }
+        }
+        return array_count_values($allTimes); 
         $diffTimes  =array_diff($allTimes,$appintments);
         $diffTimesTwo  =array_diff($appintments,$allTimes);
         $merg = array_merge($diffTimes,$diffTimesTwo);
-        return $merg;
+        return array_count_values($merg);
     }
 
     public function package()
