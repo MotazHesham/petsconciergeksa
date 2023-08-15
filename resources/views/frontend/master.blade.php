@@ -274,8 +274,7 @@
 
         <!-- /credits -->
 
-    </footer>
-
+    </footer> 
     <!-- /footer ends -->
 
     <!-- Core JavaScript Files -->

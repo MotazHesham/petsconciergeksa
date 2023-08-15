@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FrontendController extends Controller
 {
@@ -385,7 +385,7 @@ class FrontendController extends Controller
         
         
         
-        Mail::to('info@petsconciergeksa.com')->send(new \App\Mail\Appointment($objDemo));
+        Mail::to('info@petsconciergeksa.com')->send(new \App\Mail\Appointment($objDemo)); 
         return redirect()->back()->with('success','Created successfully');
 
     }
@@ -453,29 +453,16 @@ class FrontendController extends Controller
 
     public function getTime(Request $request ,$date)
     {
-        $aboutus = AboutUs::first();
-        $allTimes = [];
-        for($i = 0 ; $i < $aboutus->appointment_count ; $i++){
-            $allTimes[] = '10:00';
-            $allTimes[] = '11:30';
-            $allTimes[] = '1:00';
-            $allTimes[] = '4:00';
-            $allTimes[] = '5:30';
-            $allTimes[] = '7:00';
-        }
+        $allTimes = ['10:00','11:30','1:00','4:00','5:30','7:00'];
         $appintments = $request->has('appointment_id') 
                         ? Appointment::where('date',$date)->where('id','!=',$request->appointment_id)->pluck('time')->toArray() 
-                        : Appointment::where('date',$date)->pluck('time')->toArray(); 
-        if ($appintments) { 
-            foreach($appintments as $appo){
-                unset($allTimes[array_search($appo, $allTimes)]);
-            }
-        }
-        return array_count_values($allTimes); 
+                        : Appointment::where('date',$date)->where('user_id','!=',Auth::guard('client')->user()->id)->pluck('time')->toArray(); 
+        if (!$appintments)
+            return $allTimes;
         $diffTimes  =array_diff($allTimes,$appintments);
         $diffTimesTwo  =array_diff($appintments,$allTimes);
         $merg = array_merge($diffTimes,$diffTimesTwo);
-        return array_count_values($merg);
+        return $merg;
     }
 
     public function package()
