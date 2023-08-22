@@ -24,7 +24,7 @@ class SystemCalendarController extends Controller
     {
         $events = [];
         foreach ($this->sources as $source) { 
-            foreach (Appointment::where('emp_id', Auth::guard('employee')->user()->id)->with('client','package')->orderBy('id','DESC')->get() as $appointment) {
+            foreach (Appointment::with('client','package')->orderBy('id','DESC')->get() as $appointment) {
                 $crudFieldValue = $appointment->getAttributes()['date'];
 
                 if (! $crudFieldValue) {

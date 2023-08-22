@@ -177,17 +177,19 @@ class FrontendController extends Controller
     {
         if ($request->post()){
             $data = $request->all();
+            $email = strtolower($request->email);
             if ($request->password == $request->c_password){
-                $emailCheck = Clients::where('email','==',$request->email)->orWhere('phone',$request->phone)->first();
+                $emailCheck = Clients::where('email','==',$email)->orWhere('phone',$request->phone)->first();
                 if (!$emailCheck) {
                     $code = mt_rand(10000, 99999); // better than rand()
                     $data['code'] = $code;
+                    $data['email'] = $email;
                     $data['password'] = Hash::make($request->password);
                     $client = Clients::create($data);
                     $objDemo = new \stdClass();
                     $objDemo->title ='Welcome '.$data['name'];
                     $objDemo->message='Use this code to verify yuur account:'.$code;
-                    Mail::to($request->email)->queue(new Verify($objDemo));
+                    Mail::to($email)->queue(new Verify($objDemo));
                     return redirect('verify/'.$client->id)->with('success','Kindly verify your account');
                 }else{
                     return redirect()->back()->withInput($request->input())->with('error','email or phone already used');
@@ -238,6 +240,7 @@ class FrontendController extends Controller
     public function appointment($id,Request $request)
     {
         if (isset(Auth::guard('client')->user()->id)) {
+            alert('success','asd','success');
             $pets = Pet::where('client_id', Auth::guard('client')->user()->id)->get();
             $addons = Addons::all();
 

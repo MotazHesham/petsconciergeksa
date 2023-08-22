@@ -274,7 +274,9 @@
 
         <!-- /credits -->
 
-    </footer> 
+    </footer>
+
+    @include('sweetalert::alert')
     <!-- /footer ends -->
 
     <!-- Core JavaScript Files -->

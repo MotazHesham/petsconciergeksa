@@ -105,6 +105,9 @@
                                     @else
                                         {{ trans('cruds.appointment.fields.done') }}
                                     @endif
+                                    <br>
+                                    <b>{{ $appointment->employee->name ?? ''  }}</b>
+                                    
                                 </td>
 
 
