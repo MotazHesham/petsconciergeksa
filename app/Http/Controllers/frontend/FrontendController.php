@@ -256,8 +256,9 @@ class FrontendController extends Controller
     {
         $pets = Pet::with('category')->where('client_id',Auth::guard('client')->user()->id)->get();
         $categories = Category::all();
+        $aboutus = AboutUs::first();
 
-        return view('frontend.users.mypets', compact('pets', 'categories'));
+        return view('frontend.users.mypets', compact('pets', 'categories','aboutus'));
     }
 
     public function editUser()

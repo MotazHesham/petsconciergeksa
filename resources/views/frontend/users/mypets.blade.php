@@ -36,8 +36,9 @@
                                             <img src="{{URL::asset('storage/app/public/attachment/' . $pet->image)}}" style="width: 80px; height: 80px;">
                                         </a>
                                     @else
+                            
                                         <a href="{{url('client/petDetails', $pet->id)}}">
-                                            <img src="{{url('/frontend/img/logo.png')}}" style="width: 80px; height: 80px;">
+                                            <img src="{{ URL::asset('storage/app/public/attachment/' . $aboutus->logo) }}" style="width: 80px; height: 80px;">
                                         </a>
                                     @endif
                                     <h5><a href="{{url('client/petDetails', $pet->id)}}">{{$pet->name}}</a></h5>
