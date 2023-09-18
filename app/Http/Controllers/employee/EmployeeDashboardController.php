@@ -92,7 +92,6 @@ class EmployeeDashboardController extends Controller
     public function todayappointment()
     {
         $appointments = Appointment::whereDate('date','=',date('Y-m-d'))
-            ->where('status','1')
             ->with('client', 'pet.category', 'package')->orderBy('id','DESC')->get();
         return view('employee.appointment.todayappointment', compact('appointments'));
 
