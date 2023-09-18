@@ -138,18 +138,7 @@
                 } 
             });
         }
-        function selectTime() {
-
-            // disable sunday
-            const picker = document.getElementById('date');
-            picker.addEventListener('input', function(e) {
-                var day = new Date(this.value).getUTCDay();
-                if ([7, 0].includes(day)) {
-                    e.preventDefault();
-                    this.value = '';
-                    alert('Sunday Is Off');
-                }
-            });
+        function selectTime() { 
 
             var date = $('#date').val();
 
