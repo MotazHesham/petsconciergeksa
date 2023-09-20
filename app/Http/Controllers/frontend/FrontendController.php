@@ -458,9 +458,10 @@ class FrontendController extends Controller
     public function getTime(Request $request ,$date)
     {
         $allTimes = ['10:00','11:30','1:00','4:00','5:30','7:00'];
+        $id = Auth::guard('client')->user()->id ?? 0;
         $appintments = $request->has('appointment_id') 
                         ? Appointment::where('date',$date)->where('id','!=',$request->appointment_id)->pluck('time')->toArray() 
-                        : Appointment::where('date',$date)->where('user_id','!=',Auth::guard('client')->user()->id)->pluck('time')->toArray(); 
+                        : Appointment::where('date',$date)->where('user_id','!=',$id)->pluck('time')->toArray(); 
         if (!$appintments)
             return $allTimes;
         $diffTimes  =array_diff($allTimes,$appintments);
