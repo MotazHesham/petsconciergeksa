@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label class="required">Client</label>
-                        <select name="client_id" id="client_id" required class="form-control input-field" onchange="get_pets()" required>
+                        <select name="client_id" id="client_id" required class="form-control input-field select2" onchange="get_pets()" required>
                             <option value="">Choose Client</option>
                             @foreach ($clients as $client)
                                 <option value="{{ $client->id }}">{{ $client->name }} ({{ $client->email }})</option>
