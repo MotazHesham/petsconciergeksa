@@ -289,8 +289,21 @@ class FrontendController extends Controller
         }
         $data['client_id'] = Auth::guard('client')->user()->id;
 
-       Pet::create($data);
+        Pet::create($data);
         return redirect('/client/my/pets')->with('success','added successfully');
+    }
+
+    public function deletePet($id)
+    {
+        $pet = Pet::findOrFail($id);
+        
+        $appointments = Appointment::where('pet_id', $id)->get();
+        if(!$appointments){
+            $pet->delete();
+            return redirect('/client/my/pets')->with('success','Deleted successfully');
+        }else{
+            return redirect('/client/my/pets')->with('error','Can not delete this pets because already have appointments');
+        }
     }
 
     public function petDetails($id)

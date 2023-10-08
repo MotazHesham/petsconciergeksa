@@ -26,6 +26,11 @@
                 <div class="col-lg-9 col-md-9">
                     <!-- Form Starts -->
                     <div class="mypets">
+                        @if (Session::has('success'))
+                            <p class="alert alert-success">{{ Session::get('success') }}</p>
+                        @elseif(Session::has('error'))
+                            <p class="alert alert-danger">{{ Session::get('error') }}</p>
+                        @endif
                         <div class="row">
                             @foreach($pets as $pet)
 
@@ -41,10 +46,11 @@
                                             <img src="{{ URL::asset('storage/app/public/attachment/' . $aboutus->logo) }}" style="width: 80px; height: 80px;">
                                         </a>
                                     @endif
-                                    <h5><a href="{{url('client/petDetails', $pet->id)}}">{{$pet->name}}</a></h5>
+                                    <h5><a href="{{url('client/petDetails', $pet->id)}}" style="color: white">{{$pet->name}}</a></h5>
                                     <p>Age : {{$pet->age ?? '-'}}</p>
                                     <p>Gender : {{$pet->gender}}</p>
-                                    <p>{{$pet->category->name}}</p>
+                                    <p>{{$pet->category->name ?? ''}}</p>
+                                    <a href="{{url('client/pet/delete/' . $pet->id)}}" onclick="return confirm('Are you sure you would like to delete the pet?');" class="btn btn-danger">delete</a>
                                 </div>
                             </div>
                             @endforeach

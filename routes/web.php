@@ -169,6 +169,7 @@ Route::post('/storeClientRegister','frontend\FrontendController@register');
 Route::group(['middleware' => 'client', 'prefix' => 'client'], function () {
     Route::get('/add/pet','frontend\FrontendController@addpet');
     Route::get('/petDetails/{id}','frontend\FrontendController@petDetails');
+    Route::get('/pet/delete/{id}','frontend\FrontendController@deletePet');
     Route::post('/addpet','frontend\FrontendController@addpets');
 
     Route::get('/visits','frontend\FrontendController@visits');
