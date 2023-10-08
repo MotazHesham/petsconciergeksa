@@ -297,7 +297,7 @@ class FrontendController extends Controller
     {
         $pet = Pet::findOrFail($id);
         
-        $appointments = Appointment::where('pet_id', $id)->get();
+        $appointments = Appointment::where('pet_id', $id)->first();
         if(!$appointments){
             $pet->delete();
             return redirect('/client/my/pets')->with('success','Deleted successfully');
