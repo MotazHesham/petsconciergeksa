@@ -151,6 +151,7 @@ Route::get('/reset/password/{token}/{id}','frontend\FrontendController@resetPass
 
 
 Route::get('/','frontend\FrontendController@index');
+Route::get('/soon','frontend\FrontendController@soon');
 Route::get('/service','frontend\FrontendController@service');
 Route::get('/packages','frontend\FrontendController@package');
 Route::get('/gallery','frontend\FrontendController@gallery');

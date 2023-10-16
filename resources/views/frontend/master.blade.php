@@ -154,7 +154,7 @@
 
                     <li><a href="{{ url('/aboutus') }}">About</a></li>
                     <li><a href="{{ url('/packages') }}">Grooming</a></li>
-                    <li><a href="https://pets-concierge-ksa.myshopify.com/password">Boutique</a></li> 
+                    <li><a href="{{ url('/soon')}}">Boutique</a></li> 
 
                     <li><a href="{{ url('contact') }}">Contact</a></li>
 

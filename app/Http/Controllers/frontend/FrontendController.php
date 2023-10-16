@@ -33,6 +33,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 class FrontendController extends Controller
 {
     
+    public function soon(){
+        return view('frontend.soon');
+    }
 
     // public function test_mail(){  
     //     $tomorrow = date("Y-m-d", strtotime("+1 day"));
@@ -297,8 +300,8 @@ class FrontendController extends Controller
     {
         $pet = Pet::findOrFail($id);
         
-        $appointments = Appointment::where('pet_id', $id)->first();
-        if(!$appointments){
+        $appointment = Appointment::where('pet_id', $id)->first();
+        if(!$appointment){
             $pet->delete();
             return redirect('/client/my/pets')->with('success','Deleted successfully');
         }else{
