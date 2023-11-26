@@ -336,6 +336,14 @@ class FrontendController extends Controller
 
     public function makeAppointment(Request $request)
     {
+        // Convert the date to a timestamp
+        $timestamp = strtotime($request->date);
+        // Return the day name
+        $day_name = date('D', $timestamp); 
+
+        if($day_name == 'Sun'){
+            return redirect()->back()->with('error','the Sunday is Off Choose another day');
+        }
         // calculate total price
         $package = Packages::find($request->package_id);
         if ($request->size == 0)
