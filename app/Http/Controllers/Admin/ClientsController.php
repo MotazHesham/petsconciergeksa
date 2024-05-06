@@ -20,6 +20,7 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClientsController extends Controller
@@ -39,8 +40,17 @@ class ClientsController extends Controller
 
 
     public function store(Request $request)
-    {
-        $clients = Clients::create($request->all());
+    { 
+        $data = $request->all();
+        $request->validate([
+            'name' => 'required|max: 255',
+            'email' => 'required|email|unique:clients', 
+            'password' => 'required', 
+            'address' => 'required', 
+        ]);
+        $data['password'] = Hash::make($request->password);
+        $data['status'] = 1;
+        $client = Clients::create($data); 
         return redirect()->route('admin.clients.index');
     }
 

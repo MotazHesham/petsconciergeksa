@@ -1,5 +1,12 @@
 @extends('layouts.admin')
 @section('content')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.clients.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.clients.title_singular') }}
+            </a>
+        </div>
+    </div>
     <div class="card">
         <div class="card-header">
             {{ trans('cruds.clients.title_singular') }} {{ trans('global.list') }}
@@ -57,6 +64,8 @@
                                     @if ($client->lat && $client->lng)
                                         <a href="https://www.google.com/maps/?q={{ $client->lat }},{{ $client->lng }}"
                                             target="_blank">{{ $client->address }}</a>
+                                    @else 
+                                        {{ $client->address }}
                                     @endif
                                 </td>
                                 <td>{{ $client->appointments_count > 0 ? $client->appointments_count : '' }}</td>
