@@ -139,20 +139,20 @@
         function selectTime() {
 
             // disable sunday
-            const picker = document.getElementById('date');
-            picker.addEventListener('input', function(e) {
-                var day = new Date(this.value).getUTCDay();
-                if ([7, 0].includes(day)) {
-                    e.preventDefault();
-                    this.value = '';
-                    alert('Sunday Is Off');
-                }
-            });
+            // const picker = document.getElementById('date');
+            // picker.addEventListener('input', function(e) {
+            //     var day = new Date(this.value).getUTCDay();
+            //     if ([7, 0].includes(day)) {
+            //         e.preventDefault();
+            //         this.value = '';
+            //         alert('Sunday Is Off');
+            //     }
+            // });
 
             var date = $('#date').val();
 
             $.ajax({ 
-                url: '{{ url('client/getTime') }}/' + date, 
+                url: '{{ url('admin/getTime') }}/' + date, 
                 data:{
                     appointment_id:'{{$appointment->id}}'
                 },

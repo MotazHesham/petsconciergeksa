@@ -482,6 +482,11 @@ class FrontendController extends Controller
     public function getTime(Request $request ,$date)
     {
         $allTimes = ['10:00','11:30','1:00','4:00','5:30','7:00'];
+        // $allTimes = ['2:00','3:30','5:00','9:00','10:30','12:00'];
+        $disabled_dates = ["2024-04-10","2024-04-11","2024-04-12","2024-04-13","2024-04-14"];
+        if(in_array($date,$disabled_dates)){
+            return [];
+        }
         $id = Auth::guard('client')->user()->id ?? 0;
         $appintments = $request->has('appointment_id') 
                         ? Appointment::where('date',$date)->where('id','!=',$request->appointment_id)->pluck('time')->toArray() 

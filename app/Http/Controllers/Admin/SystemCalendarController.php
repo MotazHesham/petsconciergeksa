@@ -32,9 +32,10 @@ class SystemCalendarController extends Controller
 
                 $client_name = $appointment->client->name ?? '';
                 $package = $appointment->package->name ?? '';
+                $var = Appointment::SELECT_TIME[$appointment->time] ?? '' ;
                 $events[] = [
                     'title' => trim($client_name . ' ' . $package),
-                    'start' => $crudFieldValue . ' ' . Appointment::SELECT_TIME[$appointment->time],
+                    'start' => $crudFieldValue . ' ' . $var ,
                     'url'   => route('admin.appointment.edit', $appointment->id),
                 ];
             }

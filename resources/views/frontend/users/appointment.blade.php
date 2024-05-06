@@ -240,12 +240,18 @@
 
             // disable sunday
             const picker = document.getElementById('date');
+            const disabled_dates = ["2024-04-10","2024-04-11","2024-04-12","2024-04-13","2024-04-14"]
             picker.addEventListener('input', function(e){
                 var day = new Date(this.value).getUTCDay();
                 if([7,0].includes(day)){
                     e.preventDefault();
                     this.value = '';
                     alert('Sunday Is Off');
+                } 
+                if (disabled_dates.includes(this.value)) {
+                    e.preventDefault();
+                    this.value = '';
+                    alert('This Day Is Off,, Choose another date');
                 }
             });
 

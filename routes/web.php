@@ -69,6 +69,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('appointments/destroy/{id}', 'ClientsController@destroy_appointment')->name('appointment.destroy');
     Route::get('showAppointment/{id}', 'ClientsController@showAppointment')->name('appointment.show');
     Route::post('getPets', 'ClientsController@getPets');
+    Route::get('getTime/{date}','ClientsController@getTime');
 
     Route::resource('supplier', 'SupplierController');
     Route::resource('setting', 'SettingController');
