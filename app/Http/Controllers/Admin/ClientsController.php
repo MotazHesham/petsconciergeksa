@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class ClientsController extends Controller
 {
@@ -143,10 +144,92 @@ class ClientsController extends Controller
         $pets = Pet::where('client_id',$request->client_id)->get();
         return $pets;
     }
-    public function appointment()
+    public function appointment(Request $request)
     {
-        $appointments = Appointment::with('client','pet.category','package')->orderBy('id','DESC')->get(); 
-        return view('admin.appointment.index', compact('appointments'));
+        if ($request->ajax()) {
+            $query = Appointment::query()->with('client','pet.category','package')->select(sprintf('%s.*', (new Appointment)->table)); 
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+            $table->editColumn('actions', function ($row) {
+                
+                $output = '<a class="btn btn-xs btn-success" href="' . route('admin.appointment.edit_assign', $row->id) .'"> ' . trans('global.assign') .' </a>';
+                $output .= '<a class="btn btn-xs btn-info" href="' . route('admin.appointment.edit', $row->id) .'"> ' . trans('global.edit') .' </a>';
+                $output .='<a class="btn btn-xs btn-danger" href="' . route('admin.appointment.destroy', $row->id) .'" onclick="return confirm("areYouSure");">';
+                $output .= trans('global.delete');
+                $output .= '</a>';
+                return $output;
+            });
+            
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('client_name', function ($row) {
+                $client_data = $row->client ? $row->client->name : '';
+                $client_data .= '<br>';
+                $client_data .= $row->client ? $row->client->email : '';
+                return $client_data;
+            });
+            $table->editColumn('client_phone', function ($row) {
+                $lat = $row->client->lat ?? '';
+                $lng = $row->client->lng ?? '';
+                return ' <a href="https://www.google.com/maps/?q='.$lat .','.$lng.'"
+                    target="_blank">'. $row->client->address ?? '' .'</a>';
+            });
+            
+            $table->editColumn('date', function ($row) {
+                return $row->date . ' ' . $row->time ;
+            });
+            $table->editColumn('status', function ($row) {
+                
+                if ($row->status == 0){
+                    return '<span class="badge badge-info">' . trans('cruds.appointment.fields.active') . '</span>';
+                }elseif($row->status == 1){
+                    return '<span class="badge badge-warning">' . trans('cruds.appointment.fields.assigned') . '</span>';
+                }else{
+                    return '<span class="badge badge-success"> ' . trans('cruds.appointment.fields.done') . '</span>';
+                } 
+            });
+            $table->editColumn('pet_name', function ($row) {
+                $pet_name = $row->pet ? $row->pet->name : '';
+                $pet_age = $row->pet ? $row->pet->age : '';
+                $pet_type = $row->pet ? $row->pet->category->name : ''; 
+                $output =  $pet_name; 
+                $output .= '<br>';
+                $output .= '<span class="badge badge-danger"> AGE : '. $pet_age .'</span>';
+                $output .= '<span class="badge badge-success"> Type : '. $pet_type .'</span>';
+                $output .= '<span class="badge badge-warning">'. $row->size ?? '' .'</span>';
+                $output .= '<br>';
+                $output .= $row->additional_info ?? '';
+                return $output;
+            });
+            $table->editColumn('package_name', function ($row) {
+                
+                $output =  $row->package->name ?? ''; 
+                $output .= '<br>';
+                if($row->addon_id != null) { 
+                    foreach(json_decode($row->addon_id) as $id){
+                        $addon = Addons::find($id);
+                        $addon_name = $addon ? $addon->name : '';
+                        $output .= '<small class="badge badge-dark">'. $addon_name .'</small> <br>';
+                    } 
+                } 
+                return $output;
+            });
+            $table->editColumn('price', function ($row) { 
+                $output =  $row->price ?? '';  
+                if($row->is_it_loyalty_appoint){
+                    $output .= '<br><span class="badge badge-danger">its loyalty Card</span>';
+                } 
+                return $output;
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'price', 'status','client_name','client_phone','pet_name','package_name']);
+
+            return $table->make(true);
+        }
+        return view('admin.appointment.index');
     }
 
     public function addAppointment(){

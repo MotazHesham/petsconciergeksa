@@ -16,10 +16,9 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-Permission">
+                <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Permission">
                     <thead>
-                        <tr>
-
+                        <tr>  
                             <th>
                                 {{ trans('cruds.appointment.fields.id') }}
                             </th>
@@ -50,96 +49,7 @@
                             </th>
 
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($appointments as $appointment)
-                            <tr data-entry-id="{{ $appointment->id }}">
-
-                                <td>
-                                    {{ $appointment->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $appointment->client->name ?? '' }}
-                                    <br>
-                                    {{ $appointment->client->email ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $appointment->client->phone ?? '' }}
-                                    <br>
-                                    @php
-                                        $lat = $appointment->client->lat ?? '';
-                                        $lng = $appointment->client->lng ?? '';
-                                    @endphp
-                                    <a href="https://www.google.com/maps/?q={{ $lat }},{{ $lng }}"
-                                        target="_blank">{{ $appointment->client->address ?? '' }}</a>
-                                </td> 
-                                <td>
-                                    {{ $appointment->date . ' ' . $appointment->time }}
-                                </td>
-                                <td>
-                                    @if ($appointment->status == 0)
-                                        <span class="badge badge-info">{{ trans('cruds.appointment.fields.active') }}</span>
-                                    @elseif($appointment->status == 1)
-                                        <span class="badge badge-warning">{{ trans('cruds.appointment.fields.assigned') }}</span>
-                                    @else
-                                        <span class="badge badge-success"> {{ trans('cruds.appointment.fields.done') }}</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $appointment->pet->name ?? '' }} 
-                                    <br>
-                                    <span class="badge badge-danger"> AGE : {{ $appointment->pet->age ?? '' }}</span>
-                                    <span class="badge badge-success"> Type : {{ $appointment->pet->category->name ?? '' }}</span>
-                                    <span class="badge badge-warning">{{ $appointment->size ?? '' }}</span>
-                                    <br>
-                                    @if($appointment->additional_info)({{ $appointment->additional_info }}) @endif
-                                </td>
-                                <td>
-                                    {{ $appointment->package->name ?? '' }}
-                                    <br> 
-                                    @if($appointment->addon_id != null) 
-                                        @foreach(json_decode($appointment->addon_id) as $id)
-                                            @php
-                                                $addon = \App\Models\Addons::find($id);
-                                                $addon_name = $addon ? $addon->name : '';
-                                            @endphp
-                                            <small class="badge badge-dark">{{ $addon_name }}</small> <br>
-                                        @endforeach
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $appointment->price }}
-                                    @if($appointment->is_it_loyalty_appoint)
-                                    <br>
-                                        <span class="badge badge-danger">it's loyalty Card</span>
-                                    @endif
-                                </td>
-
-                                <td>
-                                    {{-- <a class="btn btn-xs btn-primary"
-                                        href="{{ route('admin.appointment.show', $appointment->id) }}">
-                                        {{ trans('global.show') }}
-                                    </a> --}}
-                                    @if($appointment->status != 2) 
-                                        <a class="btn btn-xs btn-success"
-                                            href="{{ route('admin.appointment.edit_assign', $appointment->id) }}">
-                                            {{ trans('global.assign') }}
-                                        </a>
-                                        <a class="btn btn-xs btn-info"
-                                            href="{{ route('admin.appointment.edit', $appointment->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                        <a class="btn btn-xs btn-danger"
-                                            href="{{ route('admin.appointment.destroy', $appointment->id) }}" onclick="return confirm('{{ trans('global.areYouSure') }}');">
-                                            {{ trans('global.delete') }}
-                                        </a>
-                                    @endif
-                                </td>
-
-
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    </thead> 
                 </table>
             </div>
         </div>
@@ -151,21 +61,63 @@
         $(function() {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons) 
 
-            $.extend(true, $.fn.dataTable.defaults, {
+            let dtOverrideGlobals = {
+                buttons: dtButtons,
+                processing: true,
+                serverSide: true,
+                retrieve: true,
+                aaSorting: [],
+                ajax: "{{ route('admin.appointment.index') }}",
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'client_name',
+                        name: 'client.name'
+                    },
+                    {
+                        data: 'client_phone',
+                        name: 'client.phone'
+                    },
+                    {
+                        data: 'date',
+                        name: 'date'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'pet_name',
+                        name: 'pet.name'
+                    },
+                    {
+                        data: 'package_name',
+                        name: 'package.name'
+                    },
+                    {
+                        data: 'price',
+                        name: 'price'
+                    },
+                    {
+                        data: 'actions',
+                        name: '{{ trans('global.actions') }}'
+                    }
+                ],
                 orderCellsTop: true,
                 order: [
-                    [0, 'desc']
+                    [1, 'desc']
                 ],
-                pageLength: 10,
-            });
-            let table = $('.datatable-Permission:not(.ajaxTable)').DataTable({
-                buttons: dtButtons
-            })
+                pageLength: 25,
+            };
+            let table = $('.datatable-Permission').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e) {
                 $($.fn.dataTable.tables(true)).DataTable()
                     .columns.adjust();
             });
 
-        })
+        });
     </script>
 @endsection
