@@ -108,7 +108,7 @@
                 ],
                 orderCellsTop: true,
                 order: [
-                    [1, 'desc']
+                    [0, 'desc']
                 ],
                 pageLength: 25,
             };
