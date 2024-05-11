@@ -52,6 +52,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // clients
     Route::get('clients/active/{id}', 'ClientsController@active')->name('clients.active');
+    Route::delete('clients/destroy_pet/{id}', 'ClientsController@destroy_pet')->name('clients.destroy_pet');
+    Route::post('clients/add_pet', 'ClientsController@add_pet')->name('clients.add_pet');
     Route::resource('clients', 'ClientsController');
     Route::delete('contacts/destroy/{id}', 'ClientsController@destroy_contact')->name('contacts.destroy');
     Route::get('contacts', 'ClientsController@contacts')->name('contacts.index');

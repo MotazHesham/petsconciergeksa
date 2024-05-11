@@ -8,6 +8,7 @@ use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\Addons;
 use App\Models\Appointment;
+use App\Models\Category;
 use App\Models\Cities;
 use App\Models\Clients;
 use App\Models\Contact;
@@ -17,6 +18,7 @@ use App\Models\Packages;
 use App\Models\Permission;
 use App\Models\Pet;
 use App\Models\User;
+use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,9 +61,26 @@ class ClientsController extends Controller
     {
         $clients=Clients::find($id);
         $clients->load('pets.category');
-        return view('admin.clients.show', compact('clients'));
+        $categories = Category::all();
+        return view('admin.clients.show', compact('clients','categories'));
     }
 
+    public function add_pet(Request $request){
+        
+        $data = $request->all();
+
+        if ($request->image) {
+            $date = Carbon::now()->micro;
+            $ext = explode('.', $request->file('image')->hashName());
+            $request->file('image')->storeAs(
+                'public/attachment', $date . '.' . $ext[1]
+            );
+            $data['image'] = $date . '.' . $ext[1];
+        } 
+
+        Pet::create($data);
+        return redirect()->back();
+    }
 
     public function edit($id)
     {
@@ -95,6 +114,14 @@ class ClientsController extends Controller
     {
         $clients=Clients::find($id);
         $clients->delete();
+        alert(trans('flash.deleted'),'','success');
+        return back();
+    }
+
+    public function destroy_pet($id)
+    {
+        $pet=Pet::find($id);
+        $pet->delete();
         alert(trans('flash.deleted'),'','success');
         return back();
     }
