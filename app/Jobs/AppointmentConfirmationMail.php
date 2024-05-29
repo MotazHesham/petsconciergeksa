@@ -19,14 +19,12 @@ class AppointmentConfirmationMail implements ShouldQueue
 
     /**
      * Create a new job instance.
-     */
+     */ 
     private $email; 
-    private $objDemo; 
 
-    public function __construct($objDemo,$email)
-    { 
+    public function __construct(public $objDemo,$email)
+    {  
         $this->email = $email;
-        $this->objDemo = $objDemo;
     }
 
     /**

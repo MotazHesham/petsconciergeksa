@@ -1,0 +1,12 @@
+[22-May-2024 18:54:10 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/petsconcierg/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/petsconcierg/public_html/config/database.php on line 18
+[23-May-2024 22:33:40 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/petsconcierg/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/petsconcierg/public_html/config/database.php on line 18
+[26-May-2024 02:09:22 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/petsconcierg/public_html/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/petsconcierg/public_html/config/database.php on line 18
