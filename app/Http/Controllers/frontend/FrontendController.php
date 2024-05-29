@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\AppointmentConfirmationMail;
 use App\Mail\Confirmation;
 use App\Mail\ForgetPassword;
 use App\Mail\Verify;
@@ -413,7 +414,8 @@ class FrontendController extends Controller
         
         
         
-        Mail::to('info@petsconciergeksa.com')->send(new \App\Mail\Appointment($objDemo)); 
+        AppointmentConfirmationMail::dispatch($objDemo,$client->email); // job for sending confirmation mail
+        
         return redirect()->back()->with('success','Created successfully');
 
     }
