@@ -129,8 +129,8 @@ class ClientsController extends Controller
 
     public function getTime(Request $request ,$date)
     {
-        // $allTimes = ['2:00','3:30','5:00','9:00','10:30','12:00'];
-        $allTimes = ['10:00','11:30','1:00','4:00','5:30','7:00']; 
+        $allTimes = ['2:00','3:30','5:00','9:00','10:30','12:00'];
+        // $allTimes = ['10:00','11:30','1:00','4:00','5:30','7:00']; 
         $id = $client_id ?? 0;
         $appintments = Appointment::where('date',$date);
 
